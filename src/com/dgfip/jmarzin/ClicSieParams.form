@@ -1,0 +1,859 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.dgfip.jmarzin.ClicSieParams">
+  <grid id="27dc6" binding="panel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="9" y="15" width="585" height="1592"/>
+    </constraints>
+    <properties>
+      <preferredSize width="620" height="1334"/>
+      <toolTipText value=""/>
+      <verifyInputWhenFocusTarget value="true"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <scrollpane id="7dca">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="2219a" binding="principal" layout-manager="GridLayoutManager" row-count="44" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints/>
+            <properties>
+              <autoscrolls value="false"/>
+              <minimumSize width="540" height="1500"/>
+              <preferredSize width="540" height="1500"/>
+            </properties>
+            <clientProperties>
+              <html.disable class="java.lang.Boolean" value="false"/>
+            </clientProperties>
+            <border type="none"/>
+            <children>
+              <component id="3cc73" class="javax.swing.JLabel" binding="lnomActe">
+                <constraints>
+                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="nom:"/>
+                </properties>
+              </component>
+              <component id="de393" class="javax.swing.JLabel" binding="lClicEsiPlus">
+                <constraints>
+                  <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="clicEsiPlus:"/>
+                </properties>
+              </component>
+              <component id="309cf" class="javax.swing.JLabel" binding="lUtiliseLO">
+                <constraints>
+                  <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="utiliseLO:"/>
+                </properties>
+              </component>
+              <component id="8aa1e" class="javax.swing.JLabel" binding="lMaxPages">
+                <constraints>
+                  <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <labelFor value="6c236"/>
+                  <text value="maxPages:"/>
+                </properties>
+              </component>
+              <component id="cf9ab" class="javax.swing.JLabel" binding="lNom">
+                <constraints>
+                  <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="nom:"/>
+                </properties>
+              </component>
+              <component id="f093" class="javax.swing.JCheckBox" binding="clicEsiPlusActe">
+                <constraints>
+                  <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="307" height="20"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="bb36b" class="javax.swing.JCheckBox" binding="utiliseLOActe">
+                <constraints>
+                  <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="307" height="20"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="6c236" class="javax.swing.JTextField" binding="maxPagesActe">
+                <constraints>
+                  <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="307" height="24"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="cc5c5" class="javax.swing.JLabel" binding="lActe">
+                <constraints>
+                  <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="307" height="24"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Arial" size="20" style="1"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <labelFor value="bc248"/>
+                  <text value="Type Acte"/>
+                </properties>
+              </component>
+              <component id="6dd7b" class="javax.swing.JTextField" binding="nom">
+                <constraints>
+                  <grid row="9" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="307" height="24"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="d4284" class="javax.swing.JLabel" binding="lNomTypeActe">
+                <constraints>
+                  <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="nomTypeActe:"/>
+                </properties>
+              </component>
+              <component id="ac151" class="javax.swing.JTextField" binding="nomTypeActe">
+                <constraints>
+                  <grid row="10" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="307" height="24"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="7d41" class="javax.swing.JButton" binding="typeActePrec">
+                <constraints>
+                  <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="&lt;&lt;"/>
+                </properties>
+              </component>
+              <component id="31baf" class="javax.swing.JButton" binding="typeActeSuiv">
+                <constraints>
+                  <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="&gt;&gt;"/>
+                </properties>
+              </component>
+              <component id="bff38" class="javax.swing.JButton" binding="typeDocumentPrec">
+                <constraints>
+                  <grid row="9" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="&lt;&lt;"/>
+                </properties>
+              </component>
+              <component id="dbd3" class="javax.swing.JButton" binding="typeDocumentSuiv">
+                <constraints>
+                  <grid row="10" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="&gt;&gt;"/>
+                </properties>
+              </component>
+              <component id="76190" class="javax.swing.JLabel" binding="lTypeDocument">
+                <constraints>
+                  <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="307" height="32"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Arial" size="20" style="1"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="Type Document"/>
+                </properties>
+              </component>
+              <component id="4a53d" class="javax.swing.JLabel" binding="lRangTypeActe">
+                <constraints>
+                  <grid row="11" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="rangTypeActe:"/>
+                </properties>
+              </component>
+              <component id="76240" class="javax.swing.JTextField" binding="rangTypeActe">
+                <constraints>
+                  <grid row="11" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="6460a" class="javax.swing.JLabel" binding="lChaineType">
+                <constraints>
+                  <grid row="12" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="chaineType:"/>
+                </properties>
+              </component>
+              <component id="6bec7" class="javax.swing.JTextField" binding="chaineType">
+                <constraints>
+                  <grid row="12" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="37de2" class="javax.swing.JButton" binding="testChaineType">
+                <constraints>
+                  <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <opaque value="true"/>
+                  <text value="Test"/>
+                </properties>
+              </component>
+              <component id="58766" class="javax.swing.JLabel" binding="lRegexCle">
+                <constraints>
+                  <grid row="13" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="regexpCle:"/>
+                </properties>
+              </component>
+              <component id="ad282" class="javax.swing.JTextField" binding="regexpCle">
+                <constraints>
+                  <grid row="13" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="495bf" class="javax.swing.JButton" binding="testRegexpCle">
+                <constraints>
+                  <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Test"/>
+                </properties>
+              </component>
+              <component id="c1f18" class="javax.swing.JLabel" binding="lChaineSousPlis">
+                <constraints>
+                  <grid row="15" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="chaineSousPlis:"/>
+                </properties>
+              </component>
+              <component id="8b024" class="javax.swing.JTextField" binding="chaineSousPlis">
+                <constraints>
+                  <grid row="15" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="3c007" class="javax.swing.JButton" binding="testChaineSousPlis">
+                <constraints>
+                  <grid row="15" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Test"/>
+                </properties>
+              </component>
+              <component id="6a068" class="javax.swing.JLabel" binding="lChaineService">
+                <constraints>
+                  <grid row="16" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="chaineService:"/>
+                </properties>
+              </component>
+              <component id="8278a" class="javax.swing.JTextField" binding="chaineService">
+                <constraints>
+                  <grid row="16" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="56df6" class="javax.swing.JButton" binding="testChaineService">
+                <constraints>
+                  <grid row="16" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Test"/>
+                </properties>
+              </component>
+              <component id="760df" class="javax.swing.JLabel" binding="lPrefixeCle">
+                <constraints>
+                  <grid row="14" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="prefixeCle:"/>
+                </properties>
+              </component>
+              <component id="a2baf" class="javax.swing.JButton" binding="testPrefixeCle">
+                <constraints>
+                  <grid row="14" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Test"/>
+                </properties>
+              </component>
+              <component id="32730" class="javax.swing.JTextField" binding="prefixeCle">
+                <constraints>
+                  <grid row="14" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="28e96" class="javax.swing.JLabel" binding="lPlusieursPage">
+                <constraints>
+                  <grid row="17" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="plusieursPages:"/>
+                </properties>
+              </component>
+              <component id="e1a6f" class="javax.swing.JCheckBox" binding="plusieursPages">
+                <constraints>
+                  <grid row="17" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <selected value="false"/>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="61f9f" class="javax.swing.JLabel" binding="lPageImpaire">
+                <constraints>
+                  <grid row="18" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="pageImpaire:"/>
+                </properties>
+              </component>
+              <component id="e9cf1" class="javax.swing.JCheckBox" binding="pageImpaire">
+                <constraints>
+                  <grid row="18" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="99255" class="javax.swing.JLabel" binding="lRotation">
+                <constraints>
+                  <grid row="19" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="rotation:"/>
+                </properties>
+              </component>
+              <component id="2963a" class="javax.swing.JTextField" binding="rotation">
+                <constraints>
+                  <grid row="19" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="59050" class="javax.swing.JButton" binding="testRotation">
+                <constraints>
+                  <grid row="19" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Test"/>
+                </properties>
+              </component>
+              <component id="fc5d2" class="javax.swing.JLabel" binding="lVersoInsere">
+                <constraints>
+                  <grid row="20" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="versoInsere:"/>
+                </properties>
+              </component>
+              <component id="e41ec" class="javax.swing.JButton" binding="testVersoInsere">
+                <constraints>
+                  <grid row="20" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Test"/>
+                </properties>
+              </component>
+              <component id="ec301" class="javax.swing.JTextField" binding="versoInsere">
+                <constraints>
+                  <grid row="20" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="eddd7" class="javax.swing.JLabel" binding="lAdresseExp">
+                <constraints>
+                  <grid row="21" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="adresseExp:"/>
+                </properties>
+              </component>
+              <component id="3d533" class="javax.swing.JLabel" binding="lAdresseExpBasGauche">
+                <constraints>
+                  <grid row="22" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="basGauche:"/>
+                </properties>
+              </component>
+              <component id="e98f6" class="javax.swing.JLabel" binding="lAdrExpBGx">
+                <constraints>
+                  <grid row="23" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="x:"/>
+                </properties>
+              </component>
+              <component id="efc70" class="javax.swing.JTextField" binding="adresseExpBasGaucheX">
+                <constraints>
+                  <grid row="23" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="e5062" class="javax.swing.JLabel" binding="lAdrExpBGy">
+                <constraints>
+                  <grid row="24" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="y:"/>
+                </properties>
+              </component>
+              <component id="27c63" class="javax.swing.JTextField" binding="adresseExpBasGaucheY">
+                <constraints>
+                  <grid row="24" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="e3e00" class="javax.swing.JLabel" binding="lAdrExpHD">
+                <constraints>
+                  <grid row="25" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="hautDroite:"/>
+                </properties>
+              </component>
+              <component id="85a86" class="javax.swing.JButton" binding="testAdresseExp">
+                <constraints>
+                  <grid row="21" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Test"/>
+                </properties>
+              </component>
+              <component id="58e4a" class="javax.swing.JLabel" binding="lAdrExpHDx">
+                <constraints>
+                  <grid row="26" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="x:"/>
+                </properties>
+              </component>
+              <component id="3b6d4" class="javax.swing.JTextField" binding="adresseExpHautDroiteX">
+                <constraints>
+                  <grid row="26" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="55e3e" class="javax.swing.JLabel" binding="lAdrExpHDy">
+                <constraints>
+                  <grid row="27" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="y:"/>
+                </properties>
+              </component>
+              <component id="6601b" class="javax.swing.JTextField" binding="adresseExpHautDroiteY">
+                <constraints>
+                  <grid row="27" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="c1353" class="javax.swing.JLabel" binding="lDeleteExp">
+                <constraints>
+                  <grid row="28" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="deleteExp:"/>
+                </properties>
+              </component>
+              <component id="f47be" class="javax.swing.JButton" binding="testDeleteExp">
+                <constraints>
+                  <grid row="28" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Test"/>
+                </properties>
+              </component>
+              <component id="e1cc7" class="javax.swing.JCheckBox" binding="deleteExp">
+                <constraints>
+                  <grid row="28" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="6231a" class="javax.swing.JLabel" binding="lAdresseDest">
+                <constraints>
+                  <grid row="29" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="adresseDest:"/>
+                </properties>
+              </component>
+              <component id="af81f" class="javax.swing.JButton" binding="testAdresseDest">
+                <constraints>
+                  <grid row="29" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Test"/>
+                </properties>
+              </component>
+              <component id="98933" class="javax.swing.JLabel" binding="lAdrDestBG">
+                <constraints>
+                  <grid row="30" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="basGauche:"/>
+                </properties>
+              </component>
+              <component id="d7f3b" class="javax.swing.JLabel" binding="lAdrDestBGx">
+                <constraints>
+                  <grid row="31" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="x:"/>
+                </properties>
+              </component>
+              <component id="c4c9f" class="javax.swing.JTextField" binding="adresseDestBasGaucheX">
+                <constraints>
+                  <grid row="31" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="ed469" class="javax.swing.JLabel" binding="lAdrDestBGy">
+                <constraints>
+                  <grid row="32" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="y:"/>
+                </properties>
+              </component>
+              <component id="f2abd" class="javax.swing.JTextField" binding="adresseDestBasGaucheY">
+                <constraints>
+                  <grid row="32" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="2c50c" class="javax.swing.JLabel" binding="lAdrDestHD">
+                <constraints>
+                  <grid row="33" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="hautDroite:"/>
+                </properties>
+              </component>
+              <component id="539c6" class="javax.swing.JLabel" binding="lAdrDestHDx">
+                <constraints>
+                  <grid row="34" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="x:"/>
+                </properties>
+              </component>
+              <component id="1eb83" class="javax.swing.JTextField" binding="adresseDestHautDroiteX">
+                <constraints>
+                  <grid row="34" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="d161f" class="javax.swing.JLabel" binding="lAdrDestHDy">
+                <constraints>
+                  <grid row="35" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="y:"/>
+                </properties>
+              </component>
+              <component id="68939" class="javax.swing.JTextField" binding="adresseDestHautDroiteY">
+                <constraints>
+                  <grid row="35" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="9fe3a" class="javax.swing.JLabel" binding="lDeleteDest">
+                <constraints>
+                  <grid row="36" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="deleteDest:"/>
+                </properties>
+              </component>
+              <component id="3b24e" class="javax.swing.JButton" binding="testDeleteDest">
+                <constraints>
+                  <grid row="36" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Test"/>
+                </properties>
+              </component>
+              <component id="e5e00" class="javax.swing.JCheckBox" binding="deleteDest">
+                <constraints>
+                  <grid row="36" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="1c16f" class="javax.swing.JLabel" binding="lPlaceDate">
+                <constraints>
+                  <grid row="37" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="placeDate:"/>
+                </properties>
+              </component>
+              <component id="17583" class="javax.swing.JButton" binding="testPlaceDate">
+                <constraints>
+                  <grid row="37" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Test"/>
+                </properties>
+              </component>
+              <component id="9f258" class="javax.swing.JLabel" binding="lPlaceDateX">
+                <constraints>
+                  <grid row="38" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="x:"/>
+                </properties>
+              </component>
+              <component id="27a3e" class="javax.swing.JTextField" binding="placeDateX">
+                <constraints>
+                  <grid row="38" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="4d303" class="javax.swing.JLabel" binding="lPlaceDateY">
+                <constraints>
+                  <grid row="39" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="y:"/>
+                </properties>
+              </component>
+              <component id="99ef7" class="javax.swing.JTextField" binding="placeDateY">
+                <constraints>
+                  <grid row="39" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="3f65" class="javax.swing.JLabel" binding="lPlaceSignature">
+                <constraints>
+                  <grid row="40" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="placeSignature:"/>
+                </properties>
+              </component>
+              <component id="d4507" class="javax.swing.JLabel" binding="lPlaceSignatureX">
+                <constraints>
+                  <grid row="41" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="x:"/>
+                </properties>
+              </component>
+              <component id="6a86e" class="javax.swing.JButton" binding="testPlaceSignature">
+                <constraints>
+                  <grid row="40" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Test"/>
+                </properties>
+              </component>
+              <component id="b9268" class="javax.swing.JTextField" binding="placeSignatureX">
+                <constraints>
+                  <grid row="41" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="48e63" class="javax.swing.JLabel" binding="lPlaceSignatureY">
+                <constraints>
+                  <grid row="42" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="y:"/>
+                </properties>
+              </component>
+              <component id="ead8e" class="javax.swing.JTextField" binding="placeSignatureY">
+                <constraints>
+                  <grid row="42" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="68a91" class="javax.swing.JLabel" binding="lAvecGrade">
+                <constraints>
+                  <grid row="43" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="avecGrade:"/>
+                </properties>
+              </component>
+              <component id="2db89" class="javax.swing.JButton" binding="testAvecGrade">
+                <constraints>
+                  <grid row="43" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Test"/>
+                </properties>
+              </component>
+              <component id="ccc9f" class="javax.swing.JCheckBox" binding="avecGrade">
+                <constraints>
+                  <grid row="43" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="bc248" class="javax.swing.JTextField" binding="nomActe">
+                <constraints>
+                  <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="91e6d" class="javax.swing.JLabel" binding="lFichierTest">
+                <constraints>
+                  <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="fichier de test"/>
+                </properties>
+              </component>
+              <component id="589b5" class="javax.swing.JButton" binding="vueButton" default-binding="true">
+                <constraints>
+                  <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Texte"/>
+                </properties>
+              </component>
+              <component id="60e03" class="javax.swing.JTextField" binding="fichierTest">
+                <constraints>
+                  <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="69189" class="javax.swing.JButton" binding="fileChoose">
+                <constraints>
+                  <grid row="8" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="..."/>
+                </properties>
+              </component>
+              <component id="5383f" class="javax.swing.JButton" binding="delTypeActe">
+                <constraints>
+                  <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Del"/>
+                </properties>
+              </component>
+              <component id="612b5" class="javax.swing.JButton" binding="insTypeActe">
+                <constraints>
+                  <grid row="6" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Ins"/>
+                </properties>
+              </component>
+              <component id="9ebb2" class="javax.swing.JButton" binding="delTypeDocument">
+                <constraints>
+                  <grid row="11" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Del"/>
+                </properties>
+              </component>
+              <component id="aaef" class="javax.swing.JButton" binding="insTypeDocument">
+                <constraints>
+                  <grid row="12" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Ins"/>
+                </properties>
+              </component>
+              <component id="d9db7" class="javax.swing.JButton" binding="enregistreLeFichier">
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Enregistre le fichier de paramétrage et sort"/>
+                </properties>
+              </component>
+              <component id="9bdfb" class="javax.swing.JButton" binding="abandonne">
+                <constraints>
+                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Abandonne"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </scrollpane>
+    </children>
+  </grid>
+</form>
