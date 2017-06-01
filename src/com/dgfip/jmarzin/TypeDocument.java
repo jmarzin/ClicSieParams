@@ -3,7 +3,11 @@ package com.dgfip.jmarzin;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import static com.dgfip.jmarzin.ClicSieParams.listeTypesActes;
+import static com.dgfip.jmarzin.ClicSieParams.params;
 
 /**
  * Created by jmarzin-cp on 13/05/2017.
@@ -26,6 +30,13 @@ public class TypeDocument {
     public void setNom(String nom) {
         this.nom = nom;
     }
+    private String controleNom() {
+        if (this.nom.isEmpty()) {
+            return "Le type de document doit avoir un nom";
+        } else {
+            return "";
+        }
+    }
 
     private TypeActe typeActe;
     public TypeActe getTypeActe() {
@@ -42,6 +53,15 @@ public class TypeDocument {
     public void setNomTypeActe(String nomTypeActe) {
         this.nomTypeActe = nomTypeActe;
         this.typeActe = TypeActe.get(nomTypeActe);
+    }
+    private String controleNomTypeActe() {
+        if (this.getNomTypeActe().isEmpty()) {
+            return "Le type de document doit être rattaché à un type d'acte";
+        } else if (TypeActe.get(this.getNomTypeActe()) == null) {
+            return "Le type d'acte indiqué n'existe pas";
+        } else {
+            return "";
+        }
     }
 
     private int rangTypeActe = 1;
@@ -162,9 +182,10 @@ public class TypeDocument {
     }
     public void setPlaceDate(Map<String,Float> placeDate) {
         this.placeDate = placeDate;
-        this.placeDate.put("x", this.placeDate.get("x"));
-        this.placeDate.put("y", this.placeDate.get("y"));
-
+        //if (placeDate != null) {
+        //    this.placeDate.put("x", this.placeDate.get("x"));
+        //    this.placeDate.put("y", this.placeDate.get("y"));
+        //}
     }
     private Map<String,Float> placeSignature = null;
     public Map<String, Float> getPlaceSignature() {
@@ -172,8 +193,10 @@ public class TypeDocument {
     }
     public void setPlaceSignature(Map<String, Float> placeSignature) {
         this.placeSignature = placeSignature;
-        this.placeSignature.put("x", this.placeSignature.get("x"));
-        this.placeSignature.put("y", this.placeSignature.get("y"));
+        //if (placeSignature != null) {
+        //    this.placeSignature.put("x", this.placeSignature.get("x"));
+        //    this.placeSignature.put("y", this.placeSignature.get("y"));
+        //}
     }
     private boolean avecGrade = true;
     public boolean isAvecGrade() {
@@ -209,5 +232,20 @@ public class TypeDocument {
     }
     static Collection<TypeDocument> values() {
         return dico.values();
+    }
+
+    static List<Erreur> erreurs(List<Erreur> listeErreurs) {
+        for (TypeDocument typeDocument : dico.values()) {
+            String message = "";
+            if (!(message = typeDocument.controleNom()).isEmpty()) {
+                listeErreurs.add(new Erreur(typeDocument.getNomTypeActe(), typeDocument.getNom(), message,
+                        params.nom, null, null, params.nom));
+            }
+            if (!(message = typeDocument.controleNomTypeActe()).isEmpty()) {
+                listeErreurs.add(new Erreur(typeDocument.getNomTypeActe(), typeDocument.getNom(), message,
+                        params.nomTypeActe, null, null, params.nomTypeActe));
+            }
+        }
+        return listeErreurs;
     }
 }

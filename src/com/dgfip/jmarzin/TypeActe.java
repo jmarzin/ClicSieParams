@@ -2,6 +2,9 @@ package com.dgfip.jmarzin;
 
 import java.util.*;
 
+import static com.dgfip.jmarzin.ClicSieParams.listeTypesActes;
+import static com.dgfip.jmarzin.ClicSieParams.params;
+
 /**
  * Created by jmarzin-cp on 16/05/2017.
  */
@@ -81,5 +84,19 @@ public class TypeActe {
             typeDocumentList.add(dicoTypesParActe.get(cle));
         }
         return typeDocumentList;
+    }
+
+    static List<Erreur> erreurs(List<Erreur> listeErreurs) {
+        for (TypeActe typeActe : listeTypesActes) {
+            String message = "";
+            LinkedList<TypeDocument> liste = typeActe.typeCourriersOrdonnes();
+            for (int i= 0; i < liste.size() - 1; i++) {
+                if(liste.get(i).getRangTypeActe() == liste.get(i + 1).getRangTypeActe()) {
+                    listeErreurs.add(new Erreur(typeActe.getNom(), liste.get(i + 1).getNom(),"Rang en doublon",
+                            params.rangTypeActe, null, null, params.rangTypeActe));
+                }
+            }
+        }
+        return listeErreurs;
     }
 }

@@ -82,4 +82,7 @@ class LecteurParametres {
             }
         }
     }
+    static void ecritDonnees() {
+
+    }
 }

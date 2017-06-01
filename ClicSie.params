@@ -111,3 +111,4 @@ chaineType: .*ATD-MIRIAM-SP.*
 nom: SIE_ATD_VERSO
 nomTypeActe: SIE_ATD
 pageImpaire: false
+rangTypeActe: 4
