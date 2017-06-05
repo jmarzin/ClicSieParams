@@ -1,5 +1,6 @@
 package com.dgfip.jmarzin;
 
+import javax.swing.*;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.HashMap;
@@ -23,45 +24,29 @@ public class TypeDocument {
         this.fichierTest = fichierTest;
     }
 
-    private String nom;
+    private String nom = null;
     public String getNom() {
         return nom;
     }
     public void setNom(String nom) {
         this.nom = nom;
     }
-    private String controleNom() {
-        if (this.nom.isEmpty()) {
-            return "Le type de document doit avoir un nom";
-        } else {
-            return "";
-        }
-    }
 
-    private TypeActe typeActe;
-    public TypeActe getTypeActe() {
-        return typeActe;
-    }
-    public void setTypeActe(TypeActe typeActe) {
-        this.typeActe = typeActe;
-    }
+    //private TypeActe typeActe;
+    //public TypeActe getTypeActe() {
+    //    return typeActe;
+    //}
+    //public void setTypeActe(TypeActe typeActe) {
+    //    this.typeActe = typeActe;
+    //}
 
-    private String nomTypeActe;
+    private String nomTypeActe = null;
     public String getNomTypeActe() {
         return nomTypeActe;
     }
     public void setNomTypeActe(String nomTypeActe) {
         this.nomTypeActe = nomTypeActe;
-        this.typeActe = TypeActe.get(nomTypeActe);
-    }
-    private String controleNomTypeActe() {
-        if (this.getNomTypeActe().isEmpty()) {
-            return "Le type de document doit être rattaché à un type d'acte";
-        } else if (TypeActe.get(this.getNomTypeActe()) == null) {
-            return "Le type d'acte indiqué n'existe pas";
-        } else {
-            return "";
-        }
+    //    this.typeActe = TypeActe.get(nomTypeActe);
     }
 
     private int rangTypeActe = 1;
@@ -72,7 +57,7 @@ public class TypeDocument {
         this.rangTypeActe = rangTypeActe;
     }
 
-    private String chaineType;
+    private String chaineType = "";
     public String getChaineType() {
         return chaineType;
     }
@@ -80,7 +65,7 @@ public class TypeDocument {
         this.chaineType = chaineType;
     }
 
-    private String regexpCle;
+    private String regexpCle = "";
     public String getRegexpCle() {
         return regexpCle;
     }
@@ -88,7 +73,7 @@ public class TypeDocument {
         this.regexpCle = regexpCle;
     }
 
-    private String prefixeCle;
+    private String prefixeCle = "";
     public String getPrefixeCle() {
         return prefixeCle;
     }
@@ -136,7 +121,7 @@ public class TypeDocument {
         this.rotation = rotation;
     }
 
-    private String versoInsere;
+    private String versoInsere = null;
     public String getVersoInsere() {
         return versoInsere;
     }
@@ -235,17 +220,6 @@ public class TypeDocument {
     }
 
     static List<Erreur> erreurs(List<Erreur> listeErreurs) {
-        for (TypeDocument typeDocument : dico.values()) {
-            String message = "";
-            if (!(message = typeDocument.controleNom()).isEmpty()) {
-                listeErreurs.add(new Erreur(typeDocument.getNomTypeActe(), typeDocument.getNom(), message,
-                        params.nom, null, null, params.nom));
-            }
-            if (!(message = typeDocument.controleNomTypeActe()).isEmpty()) {
-                listeErreurs.add(new Erreur(typeDocument.getNomTypeActe(), typeDocument.getNom(), message,
-                        params.nomTypeActe, null, null, params.nomTypeActe));
-            }
-        }
         return listeErreurs;
     }
 }

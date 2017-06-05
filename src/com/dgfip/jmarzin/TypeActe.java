@@ -72,7 +72,7 @@ public class TypeActe {
         //complement au rang dans le type d'Acte pour éviter de perdre les doublons
         int i = 0;
         for(String entree : TypeDocument.getDico().keySet()) {
-            if (TypeDocument.getDico().get(entree).getTypeActe() == this) {
+            if (TypeDocument.getDico().get(entree).getNomTypeActe().equals(this.getNom())) {
                 dicoTypesParActe.put(TypeDocument.getDico().get(entree).getRangTypeActe()*1000 + i,TypeDocument.getDico().get(entree));
             }
             i++;
@@ -87,16 +87,6 @@ public class TypeActe {
     }
 
     static List<Erreur> erreurs(List<Erreur> listeErreurs) {
-        for (TypeActe typeActe : listeTypesActes) {
-            String message = "";
-            LinkedList<TypeDocument> liste = typeActe.typeCourriersOrdonnes();
-            for (int i= 0; i < liste.size() - 1; i++) {
-                if(liste.get(i).getRangTypeActe() == liste.get(i + 1).getRangTypeActe()) {
-                    listeErreurs.add(new Erreur(typeActe.getNom(), liste.get(i + 1).getNom(),"Rang en doublon",
-                            params.rangTypeActe, null, null, params.rangTypeActe));
-                }
-            }
-        }
         return listeErreurs;
     }
 }

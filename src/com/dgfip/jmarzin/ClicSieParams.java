@@ -12,8 +12,6 @@ import com.itextpdf.text.pdf.pdfcleanup.PdfCleanUpLocation;
 import com.itextpdf.text.pdf.pdfcleanup.PdfCleanUpProcessor;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -41,6 +39,7 @@ public class ClicSieParams {
     static int rangListeTypesDocumentsOrdonnes;
     static ClicSieParams params;
     static String repertoire = "";
+    static LecteurParametres lecteurParametres;
 
     private JPanel panel;
     private JLabel lnomActe;
@@ -90,15 +89,15 @@ public class ClicSieParams {
     private JLabel lAdresseExp;
     private JLabel lAdresseExpBasGauche;
     private JLabel lAdrExpBGx;
-    private JTextField adresseExpBasGaucheX;
+    public JTextField adresseExpBasGaucheX;
     private JLabel lAdrExpBGy;
-    private JTextField adresseExpBasGaucheY;
+    public JTextField adresseExpBasGaucheY;
     private JButton testAdresseExp;
     private JLabel lAdrExpHD;
     private JLabel lAdrExpHDx;
-    private JTextField adresseExpHautDroiteX;
+    public JTextField adresseExpHautDroiteX;
     private JLabel lAdrExpHDy;
-    private JTextField adresseExpHautDroiteY;
+    public JTextField adresseExpHautDroiteY;
     private JLabel lDeleteExp;
     private JButton testDeleteExp;
     private JCheckBox deleteExp;
@@ -106,29 +105,29 @@ public class ClicSieParams {
     private JButton testAdresseDest;
     private JLabel lAdrDestBG;
     private JLabel lAdrDestBGx;
-    private JTextField adresseDestBasGaucheX;
+    public JTextField adresseDestBasGaucheX;
     private JLabel lAdrDestBGy;
-    private JTextField adresseDestBasGaucheY;
+    public JTextField adresseDestBasGaucheY;
     private JLabel lAdrDestHD;
     private JLabel lAdrDestHDx;
-    private JTextField adresseDestHautDroiteX;
+    public JTextField adresseDestHautDroiteX;
     private JLabel lAdrDestHDy;
-    private JTextField adresseDestHautDroiteY;
+    public JTextField adresseDestHautDroiteY;
     private JLabel lDeleteDest;
     private JButton testDeleteDest;
     private JCheckBox deleteDest;
     private JLabel lPlaceDate;
     private JButton testPlaceDate;
     private JLabel lPlaceDateX;
-    private JTextField placeDateX;
+    public JTextField placeDateX;
     private JLabel lPlaceDateY;
-    private JTextField placeDateY;
+    public JTextField placeDateY;
     private JLabel lPlaceSignature;
     private JLabel lPlaceSignatureX;
     private JButton testPlaceSignature;
-    private JTextField placeSignatureX;
+    public JTextField placeSignatureX;
     private JLabel lPlaceSignatureY;
-    private JTextField placeSignatureY;
+    public JTextField placeSignatureY;
     private JLabel lAvecGrade;
     private JCheckBox avecGrade;
     public JTextField nomActe;
@@ -170,26 +169,20 @@ public class ClicSieParams {
 
     public ClicSieParams() {
 
-        typeActeSuiv.addActionListener(new ActionListener() {
+        enregistreLeFichier.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                rangListeTypesActes++;
-                listeTypesDocumentsOrdonnes = TypeActe.get(listeTypesActes.get(rangListeTypesActes).getNom()).typeCourriersOrdonnes();
-                rangListeTypesDocumentsOrdonnes = 0;
-                params.nomActe.requestFocus();
-                setData();
+                getData();
+                List<Erreur> listeErreurs = erreurs();
+                if (listeErreurs.isEmpty()) {
+                    lecteurParametres.ecritDonnees();
+                    System.exit(0);
+                } else {
+                    afficheErreur(listeErreurs.get(0));
+                }
             }
         });
-        typeActePrec.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                rangListeTypesActes--;
-                listeTypesDocumentsOrdonnes = TypeActe.get(listeTypesActes.get(rangListeTypesActes).getNom()).typeCourriersOrdonnes();
-                rangListeTypesDocumentsOrdonnes = 0;
-                params.nomActe.requestFocus();
-                setData();
-            }
-        });
+
         abandonne.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -202,24 +195,30 @@ public class ClicSieParams {
                 }
             }
         });
-        typeDocumentPrec.addActionListener(new ActionListener() {
+        abandonne.setVerifyInputWhenFocusTarget(false);
+
+        typeActeSuiv.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                getData();
-                rangListeTypesDocumentsOrdonnes--;
-                params.nom.requestFocus();
+                rangListeTypesActes++;
+                listeTypesDocumentsOrdonnes = TypeActe.get(listeTypesActes.get(rangListeTypesActes).getNom()).typeCourriersOrdonnes();
+                rangListeTypesDocumentsOrdonnes = 0;
+                nomActe.requestFocus();
                 setData();
             }
         });
-        typeDocumentSuiv.addActionListener(new ActionListener() {
+
+        typeActePrec.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                getData();
-                rangListeTypesDocumentsOrdonnes++;
-                params.nom.requestFocus();
+                rangListeTypesActes--;
+                listeTypesDocumentsOrdonnes = TypeActe.get(listeTypesActes.get(rangListeTypesActes).getNom()).typeCourriersOrdonnes();
+                rangListeTypesDocumentsOrdonnes = 0;
+                nomActe.requestFocus();
                 setData();
             }
         });
+
         insTypeActe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -238,12 +237,13 @@ public class ClicSieParams {
                 typeDocument.setNom("nouveau type de document");
                 typeDocument.setNomTypeActe("nouveau type d'acte");
                 TypeDocument.getDico().put(typeDocument.getNom(),typeDocument);
-                params.nomActe.requestFocus();
+                nomActe.requestFocus();
                 rangListeTypesDocumentsOrdonnes = 0;
                 listeTypesDocumentsOrdonnes = typeActe.typeCourriersOrdonnes();
                 setData();
             }
         });
+
         delTypeActe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -256,7 +256,7 @@ public class ClicSieParams {
                     for (String cle : TypeDocument.getDico().keySet()) {
                         if(TypeDocument.getDico().get(cle).getNomTypeActe().equals(
                                 listeTypesActes.get(rangListeTypesActes).getNom())) {
-                                    clesASupprimer.add(cle);
+                            clesASupprimer.add(cle);
                         }
                     }
                     for (String cle : clesASupprimer) {
@@ -273,6 +273,32 @@ public class ClicSieParams {
                 }
             }
         });
+        delTypeActe.setVerifyInputWhenFocusTarget(false);
+
+        nomActe.setInputVerifier(new NomActeObligatoire());
+
+        maxPagesActe.setInputVerifier(new NumeriquePositif());
+
+        typeDocumentPrec.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getData();
+                rangListeTypesDocumentsOrdonnes--;
+                nom.requestFocus();
+                setData();
+            }
+        });
+
+        typeDocumentSuiv.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getData();
+                rangListeTypesDocumentsOrdonnes++;
+                nom.requestFocus();
+                setData();
+            }
+        });
+
         insTypeDocument.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -281,11 +307,12 @@ public class ClicSieParams {
                 typeDocument.setNom("nouveau type de document");
                 typeDocument.setNomTypeActe(listeTypesActes.get(rangListeTypesActes).getNom());
                 TypeDocument.getDico().put(typeDocument.getNom(),typeDocument);
-                params.nomActe.requestFocus();
+                nomActe.requestFocus();
                 listeTypesDocumentsOrdonnes = listeTypesActes.get(rangListeTypesActes).typeCourriersOrdonnes();
                 setData();
             }
         });
+
         delTypeDocument.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -299,24 +326,13 @@ public class ClicSieParams {
                     if(rangListeTypesDocumentsOrdonnes >= listeTypesDocumentsOrdonnes.size()) {
                         rangListeTypesDocumentsOrdonnes--;
                     }
+                    nomActe.requestFocus();
                     setData();
                 }
             }
         });
-        enregistreLeFichier.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        delTypeDocument.setVerifyInputWhenFocusTarget(false);
 
-                getData();
-                List<Erreur> listeErreurs = erreurs();
-                if (listeErreurs.isEmpty()) {
-                    LecteurParametres.ecritDonnees();
-                    System.exit(0);
-                } else {
-                    afficheErreur(listeErreurs.get(0));
-                }
-            }
-        });
         fileChoose.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -326,11 +342,12 @@ public class ClicSieParams {
                 fileChooser.setFileFilter(filter);
                 int returnVal = fileChooser.showOpenDialog(null);
                 if(returnVal == JFileChooser.APPROVE_OPTION) {
-                    params.fichierTest.setText(fileChooser.getSelectedFile().getAbsolutePath());
+                    fichierTest.setText(fileChooser.getSelectedFile().getAbsolutePath());
                     repertoire = fileChooser.getSelectedFile().getParent();
                 }
             }
         });
+
         vueButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -339,7 +356,7 @@ public class ClicSieParams {
                     String chaine = getChaine(lecteurPdf, 1);
                     lecteurPdf.close();
                     String[] commande = new String[]{"C:\\Program Files\\Adobe\\Reader 10.0\\Reader\\AcroRd32.exe",
-                            params.fichierTest.getText()};
+                            fichierTest.getText()};
                     Runtime runtime = Runtime.getRuntime();
                     try {
                         runtime.exec(commande);
@@ -362,6 +379,17 @@ public class ClicSieParams {
                 }
             }
         });
+
+        nom.setInputVerifier(new NomDocumentObligatoire());
+
+        nomTypeActe.setInputVerifier(new ControleNomTypeActe());
+
+        rangTypeActe.setInputVerifier(new ControleRangTypeActe());
+
+        chaineType.setInputVerifier(new NomActeObligatoire());
+
+        regexpCle.setInputVerifier(new ObligatoireSaufVerso());
+
         testChaineType.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -370,19 +398,20 @@ public class ClicSieParams {
                 Pattern pattern = Pattern.compile(params.chaineType.getText(), Pattern.MULTILINE | Pattern.DOTALL);
                 Matcher matcher = pattern.matcher(chaine);
                 if(matcher.matches()) {
-                    params.chaineType.setBackground(Color.WHITE);
-                    params.testChaineType.setForeground(Color.GREEN);
+                    chaineType.setBackground(Color.WHITE);
+                    testChaineType.setForeground(Color.GREEN);
                     JOptionPane.showMessageDialog(null, "Le fichier est correctement identifié",
                             "Succès", JOptionPane.INFORMATION_MESSAGE);
-
                 } else {
-                    params.chaineType.setBackground(Color.RED);
-                    params.testChaineType.setForeground(Color.RED);
+                    chaineType.setBackground(Color.RED);
+                    testChaineType.setForeground(Color.RED);
                     JOptionPane.showMessageDialog(null, "Le fichier n'est pas identifié",
                             "Echec", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
+
+        testRegexpCle.setInputVerifier(new ObligatoireSaufVerso());
 
         testRegexpCle.addActionListener(new ActionListener() {
             @Override
@@ -391,30 +420,13 @@ public class ClicSieParams {
                 String message = "";
                 for (int ipage = 1; ipage <= lecteurPdf.getNumberOfPages(); ipage++) {
                     String chaine = getChaine(lecteurPdf,ipage);
-                    String cle = getCle(chaine, params.regexpCle.getText());
+                    String cle = getCle(chaine, regexpCle.getText());
                     message += String.format("La clé de la page %d est %s.\n", ipage, cle);
                 }
-                String[] options = {"Non","Oui"};
-                JTextArea textArea = new JTextArea(20, 60);
-                textArea.setText(message + "\n\n Cela vous convient-il ?");
-                textArea.setEditable(true);
-                // wrap a scrollpane around it
-                JScrollPane scrollPane = new JScrollPane(textArea);
-                int dialogResult = JOptionPane.showOptionDialog(null,
-                        scrollPane ,"Confirmation",
-                        JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,
-                        null,options,0);
-                if(dialogResult == 1){
-                    params.regexpCle.setBackground(Color.WHITE);
-                    params.testRegexpCle.setForeground(Color.GREEN);
-                    params.prefixeCle.setBackground(Color.WHITE);
-                } else {
-                    params.regexpCle.setBackground(Color.RED);
-                    params.testRegexpCle.setForeground(Color.RED);
-                    params.prefixeCle.setBackground(Color.RED);
-                }
+                gereConfirmation(message, regexpCle, testRegexpCle, prefixeCle);
             }
         });
+
 
         testChaineSousPlis.addActionListener(new ActionListener() {
             @Override
@@ -423,36 +435,18 @@ public class ClicSieParams {
                 String message = "";
                 for (int ipage = 1; ipage <= lecteurPdf.getNumberOfPages(); ipage++) {
                     String chaine = getChaine(lecteurPdf, ipage);
-                    String cle = getCle(chaine, params.regexpCle.getText());
-                    if (!params.chaineSousPlis.getText().equals("null") && chaine.contains(params.chaineSousPlis.getText()) &&
+                    String cle = getCle(chaine, regexpCle.getText());
+                    if (!chaineSousPlis.getText().equals("null") && chaine.contains(chaineSousPlis.getText()) &&
                             !cle.isEmpty()) {
                         message += String.format("La page %d sera mise dans le fichier SousPlis.\n", ipage);
-                    } else if (!params.chaineService.getText().equals("null") && chaine.contains(params.chaineService.getText()) &&
+                    } else if (!chaineService.getText().equals("null") && chaine.contains(chaineService.getText()) &&
                             !cle.isEmpty()) {
                         message += String.format("La page %d sera mise dans le fichier Service.\n", ipage);
                     } else {
                         message += String.format("La page %d sera mise dans le même fichier en fonction\n     du paramètre plusieursPages:.\n", ipage);
                     }
                 }
-                String[] options = {"Non","Oui"};
-                JTextArea textArea = new JTextArea(20, 60);
-                textArea.setText(message + "\n\n Cela vous convient-il ?");
-                textArea.setEditable(true);
-                // wrap a scrollpane around it
-                JScrollPane scrollPane = new JScrollPane(textArea);
-                int dialogResult = JOptionPane.showOptionDialog(null,
-                        scrollPane ,"Confirmation",
-                        JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,
-                        null,options,0);
-                if(dialogResult == 1){
-                    params.chaineSousPlis.setBackground(Color.WHITE);
-                    params.testChaineSousPlis.setForeground(Color.GREEN);
-                    params.chaineService.setBackground(Color.WHITE);
-                } else {
-                    params.chaineSousPlis.setBackground(Color.RED);
-                    params.testChaineSousPlis.setForeground(Color.RED);
-                    params.chaineService.setBackground(Color.RED);
-                }
+                gereConfirmation(message, chaineSousPlis, testChaineSousPlis, chaineService);
             }
         });
 
@@ -463,36 +457,20 @@ public class ClicSieParams {
                 String message = "";
                 for (int ipage = 1; ipage <= lecteurPdf.getNumberOfPages(); ipage++) {
                     String chaine = getChaine(lecteurPdf, ipage);
-                    String cle = getCle(chaine, params.regexpCle.getText());
-                    if (!params.chaineSousPlis.getText().equals("null") && chaine.contains(params.chaineSousPlis.getText()) &&
+                    String cle = getCle(chaine, regexpCle.getText());
+                    if (!chaineSousPlis.getText().equals("null") && chaine.contains(chaineSousPlis.getText()) &&
                             !cle.isEmpty()) {
                         message += String.format("La page %d sera mise dans le fichier SousPlis.\n", ipage);
-                    } else if (!params.chaineService.getText().equals("null") && chaine.contains(params.chaineService.getText()) &&
+                    } else if (!chaineService.getText().equals("null") && chaine.contains(chaineService.getText()) &&
                             !cle.isEmpty()) {
                         message += String.format("La page %d sera mise dans le fichier Service.\n", ipage);
-                    } else if (params.plusieursPages.isSelected()){
+                    } else if (plusieursPages.isSelected()){
                         message += String.format("La page %d sera mise dans le même fichier.\n", ipage);
                     } else {
                         message += String.format("La page %d ne sera mise dans aucun fichier.\n", ipage);
                     }
                 }
-                String[] options = {"Non","Oui"};
-                JTextArea textArea = new JTextArea(20, 60);
-                textArea.setText(message + "\n\n Cela vous convient-il ?");
-                textArea.setEditable(true);
-                // wrap a scrollpane around it
-                JScrollPane scrollPane = new JScrollPane(textArea);
-                int dialogResult = JOptionPane.showOptionDialog(null,
-                        scrollPane,"Confirmation",
-                        JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,
-                        null,options,0);
-                if(dialogResult == 1){
-                    params.plusieursPages.setBackground(Color.WHITE);
-                    params.testPlusieursPages.setForeground(Color.GREEN);
-                } else {
-                    params.plusieursPages.setBackground(Color.RED);
-                    params.testPlusieursPages.setForeground(Color.RED);
-                }
+                gereConfirmation(message, plusieursPages, testPlusieursPages);
             }
         });
 
@@ -506,8 +484,8 @@ public class ClicSieParams {
                 String dernierFichier = "";
                 for (int ipage = 1; ipage <= lecteurPdf.getNumberOfPages(); ipage++) {
                     String chaine = getChaine(lecteurPdf, ipage);
-                    String cle = getCle(chaine, params.regexpCle.getText());
-                    if (!params.chaineSousPlis.getText().equals("null") && chaine.contains(params.chaineSousPlis.getText()) &&
+                    String cle = getCle(chaine, regexpCle.getText());
+                    if (!chaineSousPlis.getText().equals("null") && chaine.contains(chaineSousPlis.getText()) &&
                             !cle.isEmpty()) {
                         dernierFichier = "SousPlis";
                         if (nbPagesSousPlis % 2 == 1) {
@@ -516,7 +494,7 @@ public class ClicSieParams {
                         }
                         nbPagesSousPlis++;
                         message += String.format("La page %d sera mise dans le fichier SousPlis (page %d).\n", ipage, nbPagesSousPlis);
-                    } else if (!params.chaineService.getText().equals("null") && chaine.contains(params.chaineService.getText()) &&
+                    } else if (!chaineService.getText().equals("null") && chaine.contains(chaineService.getText()) &&
                             !cle.isEmpty()) {
                         dernierFichier = "Service";
                         if (nbPagesService % 2 == 1) {
@@ -525,7 +503,7 @@ public class ClicSieParams {
                         }
                         nbPagesService++;
                         message += String.format("La page %d sera mise dans le fichier Service (page %d).\n", ipage, nbPagesService);
-                    } else if (params.plusieursPages.isSelected()){
+                    } else if (plusieursPages.isSelected()){
                         if (dernierFichier.equals("SousPlis")) {
                             nbPagesSousPlis++;
                             message += String.format("La page %d sera mise dans le fichier SousPlis (page %d).\n", ipage, nbPagesSousPlis);
@@ -537,23 +515,7 @@ public class ClicSieParams {
                         message += String.format("La page %d ne sera mise dans aucun fichier.\n", ipage);
                     }
                 }
-                String[] options = {"Non","Oui"};
-                JTextArea textArea = new JTextArea(20, 60);
-                textArea.setText(message + "\n\n Cela vous convient-il ?");
-                textArea.setEditable(true);
-                // wrap a scrollpane around it
-                JScrollPane scrollPane = new JScrollPane(textArea);
-                int dialogResult = JOptionPane.showOptionDialog(null,
-                        scrollPane,"Confirmation",
-                        JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,
-                        null,options,0);
-                if(dialogResult == 1){
-                    params.pageImpaire.setBackground(Color.WHITE);
-                    params.testPageImpaire.setForeground(Color.GREEN);
-                } else {
-                    params.pageImpaire.setBackground(Color.RED);
-                    params.testPageImpaire.setForeground(Color.RED);
-                }
+                gereConfirmation(message, pageImpaire, testPageImpaire);
             }
         });
 
@@ -566,28 +528,19 @@ public class ClicSieParams {
                 }
                 assert lecteurPdf != null;
                 lecteurPdf.close();
-                String[] options = {"Non","Oui"};
-                int dialogResult = JOptionPane.showOptionDialog(null,
-                        "Cela vous convient-il ?" ,"Confirmation",
-                        JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,
-                        null,options,0);
-                if(dialogResult == 1){
-                    params.rotation.setBackground(Color.WHITE);
-                    params.testRotation.setForeground(Color.GREEN);
-                } else {
-                    params.rotation.setBackground(Color.RED);
-                    params.testRotation.setForeground(Color.RED);
-                }
+                gereConfirmation(null, rotation, testRotation);
             }
         });
+
+        versoInsere.setInputVerifier(new ControleVersoInsere());
 
         testVersoInsere.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PdfReader lecteurPdf = fichierTest();
                 if (!isControleVersoInsereNecessaire()) {
                     return;
                 }
+                PdfReader lecteurPdf = fichierTest();
                 if (lecteurPdf == null) {
                     return;
                 }
@@ -597,31 +550,24 @@ public class ClicSieParams {
                 }
                 construitFichier(lecteurPdf, 1);
                 lecteurPdf.close();
-                String[] options = {"Non","Oui"};
-                int dialogResult = JOptionPane.showOptionDialog(null,
-                        "Cela vous convient-il ?" ,"Confirmation",
-                        JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,
-                        null,options,0);
-                if(dialogResult == 1){
-                    params.versoInsere.setBackground(Color.WHITE);
-                    params.testVersoInsere.setForeground(Color.GREEN);
-                } else {
-                    params.versoInsere.setBackground(Color.RED);
-                    params.testVersoInsere.setForeground(Color.RED);
-                }
+                gereConfirmation(null, versoInsere, testVersoInsere);
             }
         });
+
+        adresseDestBasGaucheX.setInputVerifier(new ControleX());
+        adresseDestBasGaucheY.setInputVerifier(new ControleY());
+        adresseDestHautDroiteX.setInputVerifier(new ControleX());
+        adresseDestHautDroiteY.setInputVerifier(new ControleY());
 
         testAdresseDest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PdfReader lecteurPdf = fichierTest();
-                if (lecteurPdf == null) {
-                    return;
-                }
                 if (!isTestAdresseUtile(adresseDestBasGaucheX, adresseDestBasGaucheY,
                         adresseDestHautDroiteX, adresseDestHautDroiteY)) {
-                    lecteurPdf.close();
+                    return;
+                }
+                PdfReader lecteurPdf = fichierTest();
+                if (lecteurPdf == null) {
                     return;
                 }
                 if (!controleAdresse(adresseDestBasGaucheX, adresseDestBasGaucheY,
@@ -638,26 +584,11 @@ public class ClicSieParams {
                     e1.printStackTrace();
                 }
                 lecteurPdf.close();
-                String[] options = {"Non","Oui"};
-                int dialogResult = JOptionPane.showOptionDialog(null,
-                        message + "\n\nCela vous convient-il ?" ,"Confirmation de l'adresse lue",
-                        JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,
-                        null,options,0);
-                if(dialogResult == 1){
-                    params.adresseDestBasGaucheX.setBackground(Color.WHITE);
-                    params.adresseDestBasGaucheY.setBackground(Color.WHITE);
-                    params.adresseDestHautDroiteX.setBackground(Color.WHITE);
-                    params.adresseDestHautDroiteY.setBackground(Color.WHITE);
-                    params.testAdresseDest.setForeground(Color.GREEN);
-                } else {
-                    params.adresseDestBasGaucheX.setBackground(Color.RED);
-                    params.adresseDestBasGaucheY.setBackground(Color.RED);
-                    params.adresseDestHautDroiteX.setBackground(Color.RED);
-                    params.adresseDestHautDroiteY.setBackground(Color.RED);
-                    params.testAdresseDest.setForeground(Color.RED);
-                }
+                gereConfirmation(message, adresseDestBasGaucheX, adresseDestBasGaucheY,
+                        adresseDestHautDroiteX, adresseDestHautDroiteY, testAdresseDest);
             }
         });
+
         testDeleteDest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -677,30 +608,24 @@ public class ClicSieParams {
                 }
                 clicEsi(lecteurPdf, 1);
                 lecteurPdf.close();
-                String[] options = {"Non","Oui"};
-                int dialogResult = JOptionPane.showOptionDialog(null,
-                        "Cela vous convient-il ?" ,"Confirmation",
-                        JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,
-                        null,options,0);
-                if(dialogResult == 1){
-                    params.deleteDest.setBackground(Color.WHITE);
-                    params.testDeleteDest.setForeground(Color.GREEN);
-                } else {
-                    params.deleteDest.setBackground(Color.RED);
-                    params.testDeleteDest.setForeground(Color.RED);
-                }
+                gereConfirmation(null, deleteDest, testDeleteDest);
             }
         });
+
+        adresseExpBasGaucheX.setInputVerifier(new ControleX());
+        adresseExpBasGaucheY.setInputVerifier(new ControleY());
+        adresseExpHautDroiteX.setInputVerifier(new ControleX());
+        adresseExpHautDroiteY.setInputVerifier(new ControleY());
+
         testAdresseExp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PdfReader lecteurPdf = fichierTest();
-                if (lecteurPdf == null) {
-                    return;
-                }
                 if (!isTestAdresseUtile(adresseExpBasGaucheX, adresseExpBasGaucheY,
                         adresseExpHautDroiteX, adresseExpHautDroiteY)) {
-                    lecteurPdf.close();
+                    return;
+                }
+                PdfReader lecteurPdf = fichierTest();
+                if (lecteurPdf == null) {
                     return;
                 }
                 if (!controleAdresse(adresseExpBasGaucheX, adresseExpBasGaucheY,
@@ -717,36 +642,20 @@ public class ClicSieParams {
                     e1.printStackTrace();
                 }
                 lecteurPdf.close();
-                String[] options = {"Non","Oui"};
-                int dialogResult = JOptionPane.showOptionDialog(null,
-                        message + "\n\nCela vous convient-il ?" ,"Confirmation de l'adresse lue",
-                        JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,
-                        null,options,0);
-                if(dialogResult == 1){
-                    params.adresseExpBasGaucheX.setBackground(Color.WHITE);
-                    params.adresseExpBasGaucheY.setBackground(Color.WHITE);
-                    params.adresseExpHautDroiteX.setBackground(Color.WHITE);
-                    params.adresseExpHautDroiteY.setBackground(Color.WHITE);
-                    params.testAdresseExp.setForeground(Color.GREEN);
-                } else {
-                    params.adresseExpBasGaucheX.setBackground(Color.RED);
-                    params.adresseExpBasGaucheY.setBackground(Color.RED);
-                    params.adresseExpHautDroiteX.setBackground(Color.RED);
-                    params.adresseExpHautDroiteY.setBackground(Color.RED);
-                    params.testAdresseExp.setForeground(Color.RED);
-                }
+                gereConfirmation(message, adresseExpBasGaucheX, adresseExpBasGaucheY,
+                        adresseExpHautDroiteX, adresseExpHautDroiteY, testAdresseExp);
             }
         });
+
         testDeleteExp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PdfReader lecteurPdf = fichierTest();
-                if (lecteurPdf == null) {
-                    return;
-                }
                 if (!isTestAdresseUtile(adresseExpBasGaucheX, adresseExpBasGaucheY,
                         adresseExpHautDroiteX, adresseExpHautDroiteY)) {
-                    lecteurPdf.close();
+                    return;
+                }
+                PdfReader lecteurPdf = fichierTest();
+                if (lecteurPdf == null) {
                     return;
                 }
                 if (!controleAdresse(adresseDestBasGaucheX, adresseDestBasGaucheY,
@@ -761,20 +670,12 @@ public class ClicSieParams {
                 }
                 clicEsi(lecteurPdf, 2);
                 lecteurPdf.close();
-                String[] options = {"Non","Oui"};
-                int dialogResult = JOptionPane.showOptionDialog(null,
-                        "Cela vous convient-il ?" ,"Confirmation",
-                        JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,
-                        null,options,0);
-                if(dialogResult == 1){
-                    params.deleteExp.setBackground(Color.WHITE);
-                    params.testDeleteExp.setForeground(Color.GREEN);
-                } else {
-                    params.deleteExp.setBackground(Color.RED);
-                    params.testDeleteExp.setForeground(Color.RED);
-                }
+                gereConfirmation(null, deleteExp, testDeleteExp);
             }
         });
+
+        placeDateX.setInputVerifier(new ControleX());
+        placeDateY.setInputVerifier(new ControleY());
 
         testPlaceDate.addActionListener(new ActionListener() {
             @Override
@@ -786,10 +687,8 @@ public class ClicSieParams {
                             JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                if (!controleXY(placeDateX, 210.0f, testPlaceDate)) {
-                    return;
-                }
-                if (!controleXY(placeDateY, 297.0f, testPlaceDate)) {
+                if (!(new ControleX().controle(placeDateX)) || !(new ControleY().controle(placeDateY))) {
+                    testPlaceDate.setForeground(Color.RED);
                     return;
                 }
                 PdfReader lecteurPdf = fichierTest();
@@ -808,22 +707,13 @@ public class ClicSieParams {
                 }
                 clicEsi(lecteurPdf, 3);
                 lecteurPdf.close();
-                String[] options = {"Non","Oui"};
-                int dialogResult = JOptionPane.showOptionDialog(null,
-                        "Cela vous convient-il ?" ,"Confirmation",
-                        JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,
-                        null,options,0);
-                if(dialogResult == 1){
-                    params.placeDateX.setBackground(Color.WHITE);
-                    params.placeDateY.setBackground(Color.WHITE);
-                    params.testPlaceDate.setForeground(Color.GREEN);
-                } else {
-                    params.placeDateX.setBackground(Color.RED);
-                    params.placeDateY.setBackground(Color.RED);
-                    params.testPlaceDate.setForeground(Color.RED);
-                }
+                gereConfirmation(null, placeDateX, placeDateY, testPlaceDate);
             }
         });
+
+        placeSignatureX.setInputVerifier(new ControleX());
+        placeSignatureY.setInputVerifier(new ControleY());
+
         testPlaceSignature.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -834,10 +724,8 @@ public class ClicSieParams {
                             JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                if (!controleXY(placeSignatureX, 210.0f, testPlaceSignature)) {
-                    return;
-                }
-                if (!controleXY(placeSignatureY, 297.0f, testPlaceSignature)) {
+                if (!(new ControleX().controle(placeSignatureX)) || !(new ControleY().controle(placeSignatureY))) {
+                    testPlaceSignature.setForeground(Color.RED);
                     return;
                 }
                 PdfReader lecteurPdf = fichierTest();
@@ -854,32 +742,16 @@ public class ClicSieParams {
                     lecteurPdf.close();
                     return;
                 }
-                if (!controleXY(placeDateX, 210.0f, testPlaceDate)) {
-                    return;
-                }
-                if (!controleXY(placeDateY, 297.0f, testPlaceDate)) {
+                if (!(new ControleX().controle(placeDateX)) || !(new ControleY().controle(placeDateY))) {
+                    testPlaceDate.setForeground(Color.RED);
                     return;
                 }
                 clicEsi(lecteurPdf, 4);
                 lecteurPdf.close();
-                String[] options = {"Non","Oui"};
-                int dialogResult = JOptionPane.showOptionDialog(null,
-                        "Cela vous convient-il ?" ,"Confirmation",
-                        JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,
-                        null,options,0);
-                if(dialogResult == 1){
-                    params.placeSignatureX.setBackground(Color.WHITE);
-                    params.placeSignatureY.setBackground(Color.WHITE);
-                    params.avecGrade.setBackground(Color.WHITE);
-                    params.testPlaceSignature.setForeground(Color.GREEN);
-                } else {
-                    params.placeSignatureX.setBackground(Color.RED);
-                    params.placeSignatureY.setBackground(Color.RED);
-                    params.avecGrade.setBackground(Color.RED);
-                    params.testPlaceSignature.setForeground(Color.RED);
-                }
+                gereConfirmation(null, placeSignatureX, placeSignatureY, avecGrade, testPlaceSignature);
             }
         });
+
         quoiNomActe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1065,18 +937,42 @@ public class ClicSieParams {
             }
         });
     }
-    void controleMaxPages() {
-        if (!maxPagesActe.getText().matches("\\d+")) {
-            JOptionPane.showMessageDialog(null,
-                    String.format("Le nombre maximum de pages est un nombre entier positif obligatoire"),
-                    "Erreur",
-                    JOptionPane.ERROR_MESSAGE);
-            maxPagesActe.setBackground(Color.RED);
-            maxPagesActe.requestFocus();
+    void gereConfirmation(String message, JComponent... components) {
+        String[] options = {"Non","Oui"};
+        Object objet;
+        if (message == null) {
+            objet = "Cela vous convient-il ?";
         } else {
-            maxPagesActe.setBackground(Color.WHITE);
+            JTextArea textArea = new JTextArea(20, 60);
+            textArea.setText(message + "\n\n Cela vous convient-il ?");
+            textArea.setEditable(true);
+            // wrap a scrollpane around it
+            JScrollPane scrollPane = new JScrollPane(textArea);
+            objet = scrollPane;
+        }
+        int dialogResult = JOptionPane.showOptionDialog(null,
+                objet ,"Confirmation",
+                JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,
+                null,options,0);
+        if(dialogResult == 1){
+            for(JComponent component: components) {
+                if (component.getClass().equals(JButton.class)) {
+                    component.setForeground(Color.GREEN);
+                } else {
+                    component.setBackground(Color.WHITE);
+                }
+            }
+        } else {
+            for(JComponent component: components) {
+                if (component.getClass().equals(JButton.class)) {
+                    component.setForeground(Color.RED);
+                } else {
+                    component.setBackground(Color.RED);
+                }
+            }
         }
     }
+
     void afficheErreur(Erreur erreur) {
         int i = 0;
         while (i < listeTypesActes.size() && !listeTypesActes.get(i).getNom().equals(erreur.getNomTypeActe())) {
@@ -1133,7 +1029,7 @@ public class ClicSieParams {
             e.printStackTrace();
         }
         Font ocr10 = new Font(bf, 10);
-        String nomFichier = params.fichierTest.getText().replaceAll("\\.pdf", "__Clic.pdf");
+        String nomFichier = fichierTest.getText().replaceAll("\\.pdf", "__Clic.pdf");
         PdfStamper stamper = null;
         try {
             stamper = new PdfStamper(lecteurPdf, new FileOutputStream(nomFichier));
@@ -1174,10 +1070,10 @@ public class ClicSieParams {
         if (deleteDest.isSelected() || (option > 1 && deleteExp.isSelected())) {
             effaceAdresse(cleanUpLocations, stamper);
         }
-        if (!params.adresseExpBasGaucheX.getText().isEmpty()) {
+        if (!adresseExpBasGaucheX.getText().isEmpty()) {
             placeAdresse(stamper, 730f, 10f, adresseExp, arial8);
         }
-        if (!params.adresseDestBasGaucheX.getText().isEmpty() && option > 1) {
+        if (!adresseDestBasGaucheX.getText().isEmpty() && option > 1) {
             placeAdresse(stamper, 650f, 12f, adresseDest, ocr10);
         }
         if (option > 2 && !placeDateX.getText().isEmpty()) {
@@ -1279,37 +1175,32 @@ public class ClicSieParams {
         if (x1.getText().isEmpty() && y1.getText().isEmpty() && x2.getText().isEmpty() && y2.getText().isEmpty()) {
             return true;
         }
-        if (!controleXY(x1, 210.0f, test)) {
+        ControleX controleX = new ControleX();
+        ControleY controleY = new ControleY();
+        if (!controleX.controle(x1) || !controleY.controle(y1) || !controleX.controle(x2) || !controleY.controle(y2)) {
+            test.setForeground(Color.RED);
             return false;
         }
-        if (!controleXY(y1, 297.0f, test)) {
-            return false;
-        }
-        if (!controleXY(x2, 210.0f, test)) {
-            return false;
-        }
-        if (!controleXY(y2, 297.0f, test)) {
-            return false;
-        }
+        test.setForeground(Color.BLACK);
         return true;
     }
 
-    boolean controleXY(JTextField coordonnee, Float maximum, JButton bouton) {
-        if (coordonnee.getText().isEmpty() ||
-                Float.valueOf(coordonnee.getText()) < 0.0f ||
-                Float.valueOf(coordonnee.getText()) > maximum) {
-            coordonnee.setBackground(Color.RED);
-            bouton.setForeground(Color.RED);
-            JOptionPane.showMessageDialog(null,
-                    String.format("La valeur doit être comprise entre 0 et %s !", maximum),
-                    "Erreur",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        coordonnee.setBackground(Color.WHITE);
-        bouton.setForeground(Color.BLACK);
-        return true;
-    }
+//    boolean controleXY(JTextField coordonnee, Float maximum, JButton bouton) {
+//        if (coordonnee.getText().isEmpty() ||
+//                Float.valueOf(coordonnee.getText()) < 0.0f ||
+//                Float.valueOf(coordonnee.getText()) > maximum) {
+//            coordonnee.setBackground(Color.RED);
+//            bouton.setForeground(Color.RED);
+//            JOptionPane.showMessageDialog(null,
+//                    String.format("La valeur doit être comprise entre 0 et %s !", maximum),
+//                    "Erreur",
+//                    JOptionPane.ERROR_MESSAGE);
+//            return false;
+//        }
+//        coordonnee.setBackground(Color.WHITE);
+//        bouton.setForeground(Color.BLACK);
+//        return true;
+//    }
 
     boolean isControleVersoInsereNecessaire() {
         if(versoInsere.getText().equals("null")) {
@@ -1323,22 +1214,15 @@ public class ClicSieParams {
         }
     }
     boolean controleVersoInsere() {
-        if (versoInsere.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null,
-                    "Aucun fichier verso n'est indiqué. Le test est inutile !",
-                    "Erreur",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (TypeDocument.get(versoInsere.getText()) == null) {
-            params.versoInsere.setBackground(Color.RED);
-            params.testVersoInsere.setForeground(Color.RED);
-            JOptionPane.showMessageDialog(null,
-                    "Le type de document spécifié n'existe pas !",
-                    "Erreur",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
+//        if (TypeDocument.get(versoInsere.getText()) == null) {
+//            params.versoInsere.setBackground(Color.RED);
+//            params.testVersoInsere.setForeground(Color.RED);
+//            JOptionPane.showMessageDialog(null,
+//                    "Le type de document spécifié n'existe pas !",
+//                    "Erreur",
+//                    JOptionPane.ERROR_MESSAGE);
+//            return false;
+//        }
         if (TypeDocument.get(versoInsere.getText()).getFichierTest().isEmpty()) {
             params.versoInsere.setBackground(Color.RED);
             params.testVersoInsere.setForeground(Color.RED);
@@ -1593,7 +1477,7 @@ public class ClicSieParams {
             System.exit(0);
         }
         repertoire = fileChooser.getSelectedFile().getParent();
-        LecteurParametres lecteurParametres = new LecteurParametres(fileChooser.getSelectedFile().getAbsolutePath());
+        lecteurParametres = new LecteurParametres(fileChooser.getSelectedFile().getAbsolutePath());
         if(lecteurParametres.isErreur()) {
             JOptionPane.showMessageDialog(null,
                     "Le fichier ClicSie.params est absent.",
@@ -1722,7 +1606,7 @@ public class ClicSieParams {
         typeDocument.setChaineType(params.chaineType.getText());
         typeDocument.setRegexpCle(params.regexpCle.getText());
         typeDocument.setPrefixeCle(params.prefixeCle.getText());
-        typeDocument.setChaineSousPlis(params.chaineSousPlis.getText());
+        typeDocument.setChaineSousPlis(params.chaineSousPlis.getText() == "null" ? null : params.chaineSousPlis.getText());
         typeDocument.setChaineService(params.chaineService.getText() == "null" ? null : typeDocument.getChaineService());
         typeDocument.setPlusieursPages(params.plusieursPages.isSelected());
         typeDocument.setPageImpaire(params.pageImpaire.isSelected());
@@ -1734,10 +1618,13 @@ public class ClicSieParams {
             typeDocument.setAdresseExp(null);
         } else {
             rubrique.put("x", Float.valueOf(params.adresseExpBasGaucheX.getText()));
-            rubrique.put("y", Float.valueOf(params.adresseExpBasGaucheY.getText()));
+            rubrique.put("y", params.adresseExpBasGaucheY.getText().isEmpty() ? 0.0f :
+                    Float.valueOf(params.adresseExpBasGaucheX.getText()));
             adresse.put("basGauche", rubrique);
-            rubrique.put("x", Float.valueOf(params.adresseExpHautDroiteX.getText()));
-            rubrique.put("y", Float.valueOf(params.adresseExpHautDroiteY.getText()));
+            rubrique.put("x", params.adresseExpHautDroiteX.getText().isEmpty() ? 0.0f :
+                    Float.valueOf(params.adresseExpHautDroiteX.getText()));
+            rubrique.put("y", params.adresseExpHautDroiteY.getText().isEmpty() ? 0.0f :
+                    Float.valueOf(params.adresseExpHautDroiteY.getText()));
             adresse.put("hautDroite", rubrique);
             typeDocument.setAdresseExp(adresse);
         }
@@ -1746,10 +1633,13 @@ public class ClicSieParams {
             typeDocument.setAdresseDest(null);
         } else {
             rubrique.put("x", Float.valueOf(params.adresseDestBasGaucheX.getText()));
-            rubrique.put("y", Float.valueOf(params.adresseDestBasGaucheY.getText()));
+            rubrique.put("y", params.adresseDestBasGaucheY.getText().isEmpty() ? 0.0f :
+                    Float.valueOf(params.adresseDestBasGaucheX.getText()));
             adresse.put("basGauche", rubrique);
-            rubrique.put("x", Float.valueOf(params.adresseDestHautDroiteX.getText()));
-            rubrique.put("y", Float.valueOf(params.adresseDestHautDroiteY.getText()));
+            rubrique.put("x", params.adresseDestHautDroiteX.getText().isEmpty() ? 0.0f :
+                    Float.valueOf(params.adresseDestHautDroiteX.getText()));
+            rubrique.put("y", params.adresseDestHautDroiteY.getText().isEmpty() ? 0.0f :
+                    Float.valueOf(params.adresseDestHautDroiteY.getText()));
             adresse.put("hautDroite", rubrique);
             typeDocument.setAdresseDest(adresse);
         }
@@ -1758,14 +1648,16 @@ public class ClicSieParams {
             typeDocument.setPlaceDate(null);
         } else {
             rubrique.put("x", Float.valueOf(params.placeDateX.getText()));
-            rubrique.put("y", Float.valueOf(params.placeDateY.getText()));
+            rubrique.put("y", params.placeDateY.getText().isEmpty() ? 0.0f :
+                    Float.valueOf(params.placeDateY.getText()));
             typeDocument.setPlaceDate(rubrique);
         }
         if (params.placeSignatureX.getText().isEmpty()) {
             typeDocument.setPlaceSignature(null);
         } else {
             rubrique.put("x", Float.valueOf(params.placeSignatureX.getText()));
-            rubrique.put("y", Float.valueOf(params.placeSignatureY.getText()));
+            rubrique.put("y", params.placeSignatureY.getText().isEmpty() ? 0.0f :
+                    Float.valueOf(params.placeSignatureY.getText()));
             typeDocument.setPlaceSignature(rubrique);
         }
         typeDocument.setAvecGrade(params.avecGrade.isSelected());
