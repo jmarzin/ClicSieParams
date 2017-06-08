@@ -2,6 +2,10 @@ package com.dgfip.jmarzin;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.BadPdfFormatException;
+import com.itextpdf.text.pdf.PdfImportedPage;
+import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfSmartCopy;
 import org.yaml.snakeyaml.reader.StreamReader;
 
@@ -52,14 +56,27 @@ public class Copie {
             new File(this.nom).delete();
         } else {
             this.pdfSmartCopy.close();
-            String[] commande = new String[]{"C:\\Program Files\\Adobe\\Reader 10.0\\Reader\\AcroRd32.exe",
-                    this.nom};
-            Runtime runtime = Runtime.getRuntime();
+            UtileFichier.lanceAcrobat(this.nom);
+
+        }
+    }
+    void pageImpaire() {
+        if (this.pdfSmartCopy.getPageNumber() % 2 == 0) {
             try {
-                runtime.exec(commande);
-            } catch (IOException e1) {
+                this.pdfSmartCopy.addPage(PageSize.A4, 0);
+            } catch (DocumentException e1) {
                 e1.printStackTrace();
             }
+        }
+    }
+    void addPage(PdfReader pdfReader, int ipage) {
+        PdfImportedPage pageOriginale = this.pdfSmartCopy.getImportedPage(pdfReader, ipage);
+        try {
+            this.pdfSmartCopy.addPage(pageOriginale);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        } catch (BadPdfFormatException e1) {
+            e1.printStackTrace();
         }
     }
 }

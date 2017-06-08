@@ -349,19 +349,7 @@ public class ClicSieParams {
                 if (lecteurPdf != null) {
                     String chaine = getChaine(lecteurPdf, 1);
                     lecteurPdf.close();
-                    String[] commande = new String[]{"C:\\Program Files\\Adobe\\Reader 10.0\\Reader\\AcroRd32.exe",
-                            fichierTest.getText()};
-                    Runtime runtime = Runtime.getRuntime();
-                    try {
-                        runtime.exec(commande);
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e1) {
-                        e1.printStackTrace();
-                    }
+                    UtileFichier.lanceAcrobat(fichierTest.getText());
                     JTextArea textArea = new JTextArea(20, 60);
                     textArea.setText(chaine);
                     textArea.setEditable(true);
@@ -416,7 +404,7 @@ public class ClicSieParams {
                 for (int ipage = 1; ipage <= lecteurPdf.getNumberOfPages(); ipage++) {
                     String chaine = getChaine(lecteurPdf,ipage);
                     String cle = getCle(chaine, regexpCle.getText());
-                    message += String.format("La clé de la page %d est %s.\n", ipage, cle);
+                    message = String.format("%s%s", message, String.format("La clé de la page %d est %s.\n", ipage, cle));
                 }
                 gereConfirmation(message, regexpCle, testRegexpCle, prefixeCle);
             }
@@ -427,22 +415,22 @@ public class ClicSieParams {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PdfReader lecteurPdf = fichierTest();
-                String message = "";
+                StringBuilder message = new StringBuilder();
                 assert lecteurPdf != null;
                 for (int ipage = 1; ipage <= lecteurPdf.getNumberOfPages(); ipage++) {
                     String chaine = getChaine(lecteurPdf, ipage);
                     String cle = getCle(chaine, regexpCle.getText());
                     if (!chaineSousPlis.getText().equals("null") && chaine.contains(chaineSousPlis.getText()) &&
                             !cle.isEmpty()) {
-                        message += String.format("La page %d sera mise dans le fichier SousPlis.\n", ipage);
+                        message.append(String.format("La page %d sera mise dans le fichier SousPlis.\n", ipage));
                     } else if (!chaineService.getText().equals("null") && chaine.contains(chaineService.getText()) &&
                             !cle.isEmpty()) {
-                        message += String.format("La page %d sera mise dans le fichier Service.\n", ipage);
+                        message.append(String.format("La page %d sera mise dans le fichier Service.\n", ipage));
                     } else {
-                        message += String.format("La page %d sera mise dans le même fichier en fonction\n     du paramètre plusieursPages:.\n", ipage);
+                        message.append(String.format("La page %d sera mise dans le même fichier en fonction\n     du paramètre plusieursPages:.\n", ipage));
                     }
                 }
-                gereConfirmation(message, chaineSousPlis, testChaineSousPlis, chaineService);
+                gereConfirmation(message.toString(), chaineSousPlis, testChaineSousPlis, chaineService);
             }
         });
 
@@ -450,24 +438,24 @@ public class ClicSieParams {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PdfReader lecteurPdf = fichierTest();
-                String message = "";
+                StringBuilder message = new StringBuilder();
                 assert lecteurPdf != null;
                 for (int ipage = 1; ipage <= lecteurPdf.getNumberOfPages(); ipage++) {
                     String chaine = getChaine(lecteurPdf, ipage);
                     String cle = getCle(chaine, regexpCle.getText());
                     if (!chaineSousPlis.getText().equals("null") && chaine.contains(chaineSousPlis.getText()) &&
                             !cle.isEmpty()) {
-                        message += String.format("La page %d sera mise dans le fichier SousPlis.\n", ipage);
+                        message.append(String.format("La page %d sera mise dans le fichier SousPlis.\n", ipage));
                     } else if (!chaineService.getText().equals("null") && chaine.contains(chaineService.getText()) &&
                             !cle.isEmpty()) {
-                        message += String.format("La page %d sera mise dans le fichier Service.\n", ipage);
+                        message.append(String.format("La page %d sera mise dans le fichier Service.\n", ipage));
                     } else if (plusieursPages.isSelected()){
-                        message += String.format("La page %d sera mise dans le même fichier.\n", ipage);
+                        message.append(String.format("La page %d sera mise dans le même fichier.\n", ipage));
                     } else {
-                        message += String.format("La page %d ne sera mise dans aucun fichier.\n", ipage);
+                        message.append(String.format("La page %d ne sera mise dans aucun fichier.\n", ipage));
                     }
                 }
-                gereConfirmation(message, plusieursPages, testPlusieursPages);
+                gereConfirmation(message.toString(), plusieursPages, testPlusieursPages);
             }
         });
 
@@ -475,7 +463,7 @@ public class ClicSieParams {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PdfReader lecteurPdf = fichierTest();
-                String message = "";
+                StringBuilder message = new StringBuilder();
                 int nbPagesSousPlis = 0;
                 int nbPagesService = 0;
                 String dernierFichier = "";
@@ -488,32 +476,32 @@ public class ClicSieParams {
                         dernierFichier = "SousPlis";
                         if (nbPagesSousPlis % 2 == 1) {
                             nbPagesSousPlis++;
-                            message += String.format("Page %d du fichier SousPlis blanche.\n", nbPagesSousPlis);
+                            message.append(String.format("Page %d du fichier SousPlis blanche.\n", nbPagesSousPlis));
                         }
                         nbPagesSousPlis++;
-                        message += String.format("La page %d sera mise dans le fichier SousPlis (page %d).\n", ipage, nbPagesSousPlis);
+                        message.append(String.format("La page %d sera mise dans le fichier SousPlis (page %d).\n", ipage, nbPagesSousPlis));
                     } else if (!chaineService.getText().equals("null") && chaine.contains(chaineService.getText()) &&
                             !cle.isEmpty()) {
                         dernierFichier = "Service";
                         if (nbPagesService % 2 == 1) {
                             nbPagesService++;
-                            message += String.format("Page %d du fichier Service blanche.\n", nbPagesService);
+                            message.append(String.format("Page %d du fichier Service blanche.\n", nbPagesService));
                         }
                         nbPagesService++;
-                        message += String.format("La page %d sera mise dans le fichier Service (page %d).\n", ipage, nbPagesService);
+                        message.append(String.format("La page %d sera mise dans le fichier Service (page %d).\n", ipage, nbPagesService));
                     } else if (plusieursPages.isSelected()){
                         if (dernierFichier.equals("SousPlis")) {
                             nbPagesSousPlis++;
-                            message += String.format("La page %d sera mise dans le fichier SousPlis (page %d).\n", ipage, nbPagesSousPlis);
+                            message.append(String.format("La page %d sera mise dans le fichier SousPlis (page %d).\n", ipage, nbPagesSousPlis));
                         } else {
                             nbPagesService++;
-                            message += String.format("La page %d sera mise dans le fichier Service (page %d).\n", ipage, nbPagesService);
+                            message.append(String.format("La page %d sera mise dans le fichier Service (page %d).\n", ipage, nbPagesService));
                         }
                     } else {
-                        message += String.format("La page %d ne sera mise dans aucun fichier.\n", ipage);
+                        message.append(String.format("La page %d ne sera mise dans aucun fichier.\n", ipage));
                     }
                 }
-                gereConfirmation(message, pageImpaire, testPageImpaire);
+                gereConfirmation(message.toString(), pageImpaire, testPageImpaire);
             }
         });
 
@@ -573,14 +561,9 @@ public class ClicSieParams {
                     lecteurPdf.close();
                     return;
                 }
-                String message = null;
-                try {
-                    Rectangle rect = construitRect(adresseDestBasGaucheX, adresseDestBasGaucheY,
-                            adresseDestHautDroiteX, adresseDestHautDroiteY);
-                    message = recupereAdresse(lecteurPdf, rect);
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+                Rectangle rect = construitRect(adresseDestBasGaucheX, adresseDestBasGaucheY,
+                        adresseDestHautDroiteX, adresseDestHautDroiteY);
+                String message = recupereAdresse(lecteurPdf, rect);
                 lecteurPdf.close();
                 gereConfirmation(message, adresseDestBasGaucheX, adresseDestBasGaucheY,
                         adresseDestHautDroiteX, adresseDestHautDroiteY, testAdresseDest);
@@ -631,14 +614,9 @@ public class ClicSieParams {
                     lecteurPdf.close();
                     return;
                 }
-                String message = null;
-                try {
-                    Rectangle rect = construitRect(adresseExpBasGaucheX, adresseExpBasGaucheY,
-                            adresseExpHautDroiteX, adresseExpHautDroiteY);
-                    message = recupereAdresse(lecteurPdf, rect);
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+                Rectangle rect = construitRect(adresseExpBasGaucheX, adresseExpBasGaucheY,
+                        adresseExpHautDroiteX, adresseExpHautDroiteY);
+                String message = recupereAdresse(lecteurPdf, rect);
                 lecteurPdf.close();
                 gereConfirmation(message, adresseExpBasGaucheX, adresseExpBasGaucheY,
                         adresseExpHautDroiteX, adresseExpHautDroiteY, testAdresseExp);
@@ -984,33 +962,13 @@ public class ClicSieParams {
         return listeErreurs;
     }
     private void clicEsi(PdfReader lecteurPdf, int option) {
-        BaseFont bf = null;
-        try {
-            bf = BaseFont.createFont("C:\\Windows\\Fonts\\arial.ttf", BaseFont.WINANSI, BaseFont.EMBEDDED);
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        BaseFont bf = UtileFichier.getFonte("arial.ttf");
         Font arial8 = new Font(bf,8);
         Font arial10 = new Font(bf, 10);
-        try {
-            bf = BaseFont.createFont("C:\\Windows\\Fonts\\OCR-B10BT.TTF", BaseFont.WINANSI, BaseFont.EMBEDDED);
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        bf = UtileFichier.getFonte("OCR-B10BT.TTF");
         Font ocr10 = new Font(bf, 10);
         String nomFichier = fichierTest.getText().replaceAll("\\.pdf", "__Clic.pdf");
-        PdfStamper stamper = null;
-        try {
-            stamper = new PdfStamper(lecteurPdf, new FileOutputStream(nomFichier));
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        PdfStamper stamper = UtileFichier.getStamper(lecteurPdf, nomFichier);
         Rectangle rectDest;
         String[] adresseDest = null;
         Rectangle rectExp;
@@ -1019,11 +977,7 @@ public class ClicSieParams {
         if (!adresseDestBasGaucheX.getText().isEmpty()) {
             rectDest = construitRect(adresseDestBasGaucheX, adresseDestBasGaucheY,
                 adresseDestHautDroiteX, adresseDestHautDroiteY);
-            try {
-                adresseDest = recupereAdresse(lecteurPdf, rectDest).split("\n");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            adresseDest = recupereAdresse(lecteurPdf, rectDest).split("\n");
             if (deleteDest.isSelected()) {
                 cleanUpLocations.add(new PdfCleanUpLocation(1, rectDest));
             }
@@ -1031,11 +985,7 @@ public class ClicSieParams {
         if (!adresseExpBasGaucheX.getText().isEmpty() && option > 1) {
             rectExp = construitRect(adresseExpBasGaucheX, adresseExpBasGaucheY,
                 adresseExpHautDroiteX, adresseExpHautDroiteY);
-            try {
-                adresseExp = recupereAdresse(lecteurPdf, rectExp).split("\n");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            adresseExp = recupereAdresse(lecteurPdf, rectExp).split("\n");
             if (deleteExp.isSelected()) {
                 cleanUpLocations.add(new PdfCleanUpLocation(1, rectExp));
             }
@@ -1075,29 +1025,9 @@ public class ClicSieParams {
                 inc -= 11;
             }
         }
-        try {
-            if (stamper != null) {
-                stamper.close();
-            }
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        UtileFichier.closeStamper(stamper);
         lecteurPdf.close();
-        String[] commande = new String[]{"C:\\Program Files\\Adobe\\Reader 10.0\\Reader\\AcroRd32.exe",
-                nomFichier};
-        Runtime runtime = Runtime.getRuntime();
-        try {
-            runtime.exec(commande);
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e1) {
-            e1.printStackTrace();
-        }
+        UtileFichier.lanceAcrobat(nomFichier);
     }
 
     private void placeAdresse(PdfStamper stamper, Float y, Float espace, String[] adresse, Font ocr10) {
@@ -1128,10 +1058,15 @@ public class ClicSieParams {
                 Float.valueOf(x2.getText())*72f/25.4f,
                 842f - Float.valueOf(y2.getText())*72f/25.4f);
     }
-    private String recupereAdresse(PdfReader lecteurPdf, Rectangle rectangle) throws IOException {
+    private String recupereAdresse(PdfReader lecteurPdf, Rectangle rectangle) {
         RegionTextRenderFilter filter = new RegionTextRenderFilter(rectangle);
         FilteredTextRenderListener strategy = new FilteredTextRenderListener(new LocationTextExtractionStrategy(), filter);
-        return PdfTextExtractor.getTextFromPage(lecteurPdf, 1, strategy);
+        try {
+            return PdfTextExtractor.getTextFromPage(lecteurPdf, 1, strategy);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     private boolean isTestAdresseUtile(JTextField x1, JTextField y1, JTextField x2, JTextField y2) {
@@ -1162,23 +1097,6 @@ public class ClicSieParams {
         return true;
     }
 
-//    boolean controleXY(JTextField coordonnee, Float maximum, JButton bouton) {
-//        if (coordonnee.getText().isEmpty() ||
-//                Float.valueOf(coordonnee.getText()) < 0.0f ||
-//                Float.valueOf(coordonnee.getText()) > maximum) {
-//            coordonnee.setBackground(Color.RED);
-//            bouton.setForeground(Color.RED);
-//            JOptionPane.showMessageDialog(null,
-//                    String.format("La valeur doit être comprise entre 0 et %s !", maximum),
-//                    "Erreur",
-//                    JOptionPane.ERROR_MESSAGE);
-//            return false;
-//        }
-//        coordonnee.setBackground(Color.WHITE);
-//        bouton.setForeground(Color.BLACK);
-//        return true;
-//    }
-
     private boolean isControleVersoInsereNecessaire() {
         if(versoInsere.getText().equals("null")) {
             JOptionPane.showMessageDialog(null,
@@ -1191,15 +1109,6 @@ public class ClicSieParams {
         }
     }
     private boolean controleVersoInsere() {
-//        if (TypeDocument.get(versoInsere.getText()) == null) {
-//            params.versoInsere.setBackground(Color.RED);
-//            params.testVersoInsere.setForeground(Color.RED);
-//            JOptionPane.showMessageDialog(null,
-//                    "Le type de document spécifié n'existe pas !",
-//                    "Erreur",
-//                    JOptionPane.ERROR_MESSAGE);
-//            return false;
-//        }
         if (TypeDocument.get(versoInsere.getText()).getFichierTest().isEmpty()) {
             params.versoInsere.setBackground(Color.RED);
             params.testVersoInsere.setForeground(Color.RED);
@@ -1217,16 +1126,10 @@ public class ClicSieParams {
     private void construitFichier(PdfReader lecteurPdf, int option) {
         Copie sousPlis = new Copie(params.fichierTest.getText().replaceAll("\\.pdf", "__SousPlis.pdf"));
         Copie service = new Copie(params.fichierTest.getText().replaceAll("\\.pdf", "__Service.pdf"));
-        PdfSmartCopy dernierFichier = null;
-        PdfReader lecteurVerso = null;
+        Copie dernierFichier = null;
+        Lecteur lecteurVerso = null;
         if (option > 0) {
-            if (!params.versoInsere.getText().isEmpty()) {
-                try {
-                    lecteurVerso = new PdfReader(TypeDocument.get(params.versoInsere.getText()).getFichierTest());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            lecteurVerso = new Lecteur(TypeDocument.get(params.versoInsere.getText()).getNom());
         }
         for (int ipage = 1; ipage <= lecteurPdf.getNumberOfPages(); ipage++) {
             String chaine = getChaine(lecteurPdf, ipage);
@@ -1242,60 +1145,20 @@ public class ClicSieParams {
             }
             if (!params.chaineSousPlis.getText().equals("null") && chaine.contains(params.chaineSousPlis.getText()) &&
                     !cle.isEmpty()) {
-                dernierFichier = sousPlis.getPdfSmartCopy();
-                if (dernierFichier.getPageNumber() % 2 == 0) {
-                    try {
-                        dernierFichier.addPage(PageSize.A4, 0);
-                    } catch (DocumentException e1) {
-                        e1.printStackTrace();
-                    }
-                }
-                PdfImportedPage pageOriginale = dernierFichier.getImportedPage(lecteurPdf, ipage);
-                try {
-                    dernierFichier.addPage(pageOriginale);
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                } catch (BadPdfFormatException e1) {
-                    e1.printStackTrace();
-                }
+                dernierFichier = sousPlis;
+                dernierFichier.pageImpaire();
+                dernierFichier.addPage(lecteurPdf, ipage);
                 if (lecteurVerso != null) {
-                    pageOriginale = dernierFichier.getImportedPage(lecteurVerso, 1);
-                    try {
-                        dernierFichier.addPage(pageOriginale);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (BadPdfFormatException e) {
-                        e.printStackTrace();
-                    }
+                    dernierFichier.addPage(lecteurVerso.getPdfReader(), 1);
                 }
             } else if (!params.chaineService.getText().equals("null") && chaine.contains(params.chaineService.getText()) &&
                     !cle.isEmpty()) {
-                dernierFichier = service.getPdfSmartCopy();
-                if (dernierFichier.getPageNumber() % 2 == 0) {
-                    try {
-                        dernierFichier.addPage(PageSize.A4, 0);
-                    } catch (DocumentException e1) {
-                        e1.printStackTrace();
-                    }
-                }
-                PdfImportedPage pageOriginale = dernierFichier.getImportedPage(lecteurPdf, ipage);
-                try {
-                    dernierFichier.addPage(pageOriginale);
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                } catch (BadPdfFormatException e1) {
-                    e1.printStackTrace();
-                }
+                dernierFichier = service;
+                dernierFichier.pageImpaire();
+                dernierFichier.addPage(lecteurPdf, ipage);
             } else if (params.plusieursPages.isSelected()) {
                 assert dernierFichier != null;
-                PdfImportedPage pageOriginale = dernierFichier.getImportedPage(lecteurPdf, ipage);
-                try {
-                    dernierFichier.addPage(pageOriginale);
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                } catch (BadPdfFormatException e1) {
-                    e1.printStackTrace();
-                }
+                dernierFichier.addPage(lecteurPdf, ipage);
             }
         }
         sousPlis.ouvrePdf();
@@ -1321,16 +1184,16 @@ public class ClicSieParams {
     }
 
     private String getCle(String chaine, String regexpCle) {
-        String cle = "";
+        StringBuilder cle = new StringBuilder();
         Pattern pattern = Pattern.compile(regexpCle, Pattern.MULTILINE | Pattern.DOTALL);
         Matcher matcher = pattern.matcher(chaine);
         if (matcher.matches()) {
-            cle = params.nomTypeActe.getText() + "_" + params.prefixeCle.getText();
+            cle = new StringBuilder(params.nomTypeActe.getText() + "_" + params.prefixeCle.getText());
             for(int i = 1; i <= matcher.groupCount(); i++) {
-                cle = cle + matcher.group(i);
+                cle.append(matcher.group(i));
             }
         }
-        return cle.replaceAll(" ", "");
+        return cle.toString().replaceAll(" ", "");
     }
 
     private PdfReader fichierTest() {
