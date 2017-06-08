@@ -1166,7 +1166,7 @@ public class ClicSieParams {
     }
 
     private void aide(String champ) {
-        BufferedInputStream resource = (BufferedInputStream) ClicSieParams.class.getResourceAsStream(String.format("%s.html", champ));
+        BufferedInputStream resource = (BufferedInputStream) ClicSieParams.class.getResourceAsStream(String.format("/com/dgfip/jmarzin/aide/%s.html", champ));
         String message = "";
         try {
             message = IOUtils.toString(resource, "UTF-8");
