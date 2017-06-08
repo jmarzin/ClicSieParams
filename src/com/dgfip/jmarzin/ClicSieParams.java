@@ -10,6 +10,7 @@ import com.itextpdf.text.pdf.parser.PdfTextExtractor;
 import com.itextpdf.text.pdf.parser.RegionTextRenderFilter;
 import com.itextpdf.text.pdf.pdfcleanup.PdfCleanUpLocation;
 import com.itextpdf.text.pdf.pdfcleanup.PdfCleanUpProcessor;
+import org.apache.commons.io.IOUtils;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -18,19 +19,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by jacquesmarzin on 20/05/2017.
- */
 public class ClicSieParams {
 
     static LinkedList<TypeActe> listeTypesActes;
@@ -38,9 +33,8 @@ public class ClicSieParams {
     static int rangListeTypesActes;
     static int rangListeTypesDocumentsOrdonnes;
     static ClicSieParams params;
-    static String repertoire = "";
-    static LecteurParametres lecteurParametres;
-
+    private static String repertoire = "";
+    private static LecteurParametres lecteurParametres;
     private JPanel panel;
     private JLabel lnomActe;
     private JLabel lClicEsiPlus;
@@ -418,6 +412,7 @@ public class ClicSieParams {
             public void actionPerformed(ActionEvent e) {
                 PdfReader lecteurPdf = fichierTest();
                 String message = "";
+                assert lecteurPdf != null;
                 for (int ipage = 1; ipage <= lecteurPdf.getNumberOfPages(); ipage++) {
                     String chaine = getChaine(lecteurPdf,ipage);
                     String cle = getCle(chaine, regexpCle.getText());
@@ -433,6 +428,7 @@ public class ClicSieParams {
             public void actionPerformed(ActionEvent e) {
                 PdfReader lecteurPdf = fichierTest();
                 String message = "";
+                assert lecteurPdf != null;
                 for (int ipage = 1; ipage <= lecteurPdf.getNumberOfPages(); ipage++) {
                     String chaine = getChaine(lecteurPdf, ipage);
                     String cle = getCle(chaine, regexpCle.getText());
@@ -455,6 +451,7 @@ public class ClicSieParams {
             public void actionPerformed(ActionEvent e) {
                 PdfReader lecteurPdf = fichierTest();
                 String message = "";
+                assert lecteurPdf != null;
                 for (int ipage = 1; ipage <= lecteurPdf.getNumberOfPages(); ipage++) {
                     String chaine = getChaine(lecteurPdf, ipage);
                     String cle = getCle(chaine, regexpCle.getText());
@@ -482,6 +479,7 @@ public class ClicSieParams {
                 int nbPagesSousPlis = 0;
                 int nbPagesService = 0;
                 String dernierFichier = "";
+                assert lecteurPdf != null;
                 for (int ipage = 1; ipage <= lecteurPdf.getNumberOfPages(); ipage++) {
                     String chaine = getChaine(lecteurPdf, ipage);
                     String cle = getCle(chaine, regexpCle.getText());
@@ -755,169 +753,145 @@ public class ClicSieParams {
         quoiNomActe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "";
-                aide("nomActe:",message);
+                aide("nomActe");
             }
         });
         quoiClicEsiPlus.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "";
-                aide("clicEsiPlus:",message);
+                aide("clicEsiPlus");
             }
         });
         quoiUtiliseLO.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "";
-                aide("utiliseLO:",message);
+                aide("utiliseLO");
             }
         });
         quoiMaxPages.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "";
-                aide("maxPages:",message);
+                aide("maxPages");
             }
         });
         quoiFichierTest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "";
-                aide("fichierTest:",message);
+                aide("fichierTest");
             }
         });
         quoiNom.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "";
-                aide("nom:",message);
+                aide("nom");
             }
         });
         quoiNomTypeActe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "";
-                aide("nomTypeActe:",message);
+                aide("nomTypeActe");
             }
         });
         quoiRangTypeActe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "";
-                aide("rangTypeActe:",message);
+                aide("rangTypeActe");
             }
         });
         quoiChaineType.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "";
-                aide("chaineType:",message);
+                aide("chaineType");
             }
         });
         quoiRegexpCle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "";
-                aide("regexpCle:",message);
+                aide("regexpCle");
             }
         });
         quoiPrefixeCle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "";
-                aide("prefixeCle:",message);
+                aide("prefixeCle");
             }
         });
         quoiChaineSousPlis.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "";
-                aide("chaineSousPlis:",message);
+                aide("chaineSousPlis");
             }
         });
         quoiChaineService.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "";
-                aide("chaineService:",message);
+                aide("chaineService");
             }
         });
         quoiPlusieursPages.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "";
-                aide("plusieursPages:",message);
+                aide("plusieursPages");
             }
         });
         quoiPagesImpaires.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "";
-                aide("pagesImpaires:",message);
+                aide("pagesImpaires");
             }
         });
         quoiRotation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "";
-                aide("rotation:",message);
+                aide("rotation:");
             }
         });
         quoiVersoInsere.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "";
-                aide("versoInsere:",message);
+                aide("versoInsere");
             }
         });
         quoiAdresseExp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "";
-                aide("adresseExp:",message);
+                aide("adresseExp");
             }
         });
         quoiDeleteExp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "";
-                aide("deleteExp:",message);
+                aide("deleteExp");
             }
         });
         quoiAdresseDest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "";
-                aide("adresseDest:",message);
+                aide("adresseDest");
             }
         });
         quoiDeleteDest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "";
-                aide("deleteDest:",message);
+                aide("deleteDest");
             }
         });
         quoiPlaceDate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "";
-                aide("placeDate:",message);
+                aide("placeDate");
             }
         });
         quoiPlaceSignature.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "";
-                aide("placeSignature:",message);
+                aide("placeSignature");
             }
         });
         quoiAvecGrade.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "";
-                aide("avecGrade:",message);
+                aide("avecGrade");
             }
         });
         nomActe.addFocusListener(new FocusAdapter() {
@@ -928,7 +902,7 @@ public class ClicSieParams {
                     nomActe.setBackground(Color.RED);
                     nomActe.requestFocus();
                     JOptionPane.showMessageDialog(null,
-                            String.format("Le nom du type d'acte est obligatoire"),
+                            "Le nom du type d'acte est obligatoire",
                             "Erreur",
                             JOptionPane.ERROR_MESSAGE);
                 } else {
@@ -937,7 +911,7 @@ public class ClicSieParams {
             }
         });
     }
-    void gereConfirmation(String message, JComponent... components) {
+    private void gereConfirmation(String message, JComponent... components) {
         String[] options = {"Non","Oui"};
         Object objet;
         if (message == null) {
@@ -947,8 +921,7 @@ public class ClicSieParams {
             textArea.setText(message + "\n\n Cela vous convient-il ?");
             textArea.setEditable(true);
             // wrap a scrollpane around it
-            JScrollPane scrollPane = new JScrollPane(textArea);
-            objet = scrollPane;
+            objet = new JScrollPane(textArea);
         }
         int dialogResult = JOptionPane.showOptionDialog(null,
                 objet ,"Confirmation",
@@ -973,7 +946,7 @@ public class ClicSieParams {
         }
     }
 
-    void afficheErreur(Erreur erreur) {
+    private void afficheErreur(Erreur erreur) {
         int i = 0;
         while (i < listeTypesActes.size() && !listeTypesActes.get(i).getNom().equals(erreur.getNomTypeActe())) {
             i++;
@@ -1000,17 +973,17 @@ public class ClicSieParams {
         }
         ((JComponent) erreur.getObjetFocus()).requestFocus();
         JOptionPane.showMessageDialog(null,
-                String.format(erreur.getMessage()),
+                erreur.getMessage(),
                 "Erreur",
                 JOptionPane.ERROR_MESSAGE);
     }
-    List<Erreur> erreurs() {
+    private List<Erreur> erreurs() {
         List<Erreur> listeErreurs = new ArrayList<Erreur>();
         listeErreurs = TypeActe.erreurs(listeErreurs);
         listeErreurs = TypeDocument.erreurs(listeErreurs);
         return listeErreurs;
     }
-    void clicEsi(PdfReader lecteurPdf, int option) {
+    private void clicEsi(PdfReader lecteurPdf, int option) {
         BaseFont bf = null;
         try {
             bf = BaseFont.createFont("C:\\Windows\\Fonts\\arial.ttf", BaseFont.WINANSI, BaseFont.EMBEDDED);
@@ -1038,9 +1011,9 @@ public class ClicSieParams {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Rectangle rectDest = null;
+        Rectangle rectDest;
         String[] adresseDest = null;
-        Rectangle rectExp = null;
+        Rectangle rectExp;
         String[] adresseExp = null;
         List<PdfCleanUpLocation> cleanUpLocations = new ArrayList<PdfCleanUpLocation>();
         if (!adresseDestBasGaucheX.getText().isEmpty()) {
@@ -1077,6 +1050,7 @@ public class ClicSieParams {
             placeAdresse(stamper, 650f, 12f, adresseDest, ocr10);
         }
         if (option > 2 && !placeDateX.getText().isEmpty()) {
+            assert stamper != null;
             PdfContentByte canvas = stamper.getOverContent(1);
             Date now = Calendar.getInstance().getTime();
             ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT,
@@ -1091,6 +1065,7 @@ public class ClicSieParams {
                 idep = 0;
             }
             int inc = 0;
+            assert stamper != null;
             PdfContentByte canvas = stamper.getOverContent(1);
             for(int i=idep; i < signature.length; i++) {
                 ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT,
@@ -1101,7 +1076,9 @@ public class ClicSieParams {
             }
         }
         try {
-            stamper.close();
+            if (stamper != null) {
+                stamper.close();
+            }
         } catch (DocumentException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -1123,7 +1100,7 @@ public class ClicSieParams {
         }
     }
 
-    void placeAdresse(PdfStamper stamper, Float y, Float espace, String[] adresse, Font ocr10) {
+    private void placeAdresse(PdfStamper stamper, Float y, Float espace, String[] adresse, Font ocr10) {
         PdfContentByte canvas = stamper.getOverContent(1);
         for (String ligne : adresse) {
             if (!ligne.startsWith("CS ")) {
@@ -1134,7 +1111,7 @@ public class ClicSieParams {
         }
     }
 
-    void effaceAdresse(List<PdfCleanUpLocation> cleanUpLocations, PdfStamper stamper) {
+    private void effaceAdresse(List<PdfCleanUpLocation> cleanUpLocations, PdfStamper stamper) {
         PdfCleanUpProcessor cleaner = new PdfCleanUpProcessor(cleanUpLocations, stamper);
         try {
             cleaner.cleanUp();
@@ -1145,19 +1122,19 @@ public class ClicSieParams {
         }
         cleanUpLocations.clear();
     }
-    Rectangle construitRect(JTextField x1, JTextField y1, JTextField x2, JTextField y2) {
+    private Rectangle construitRect(JTextField x1, JTextField y1, JTextField x2, JTextField y2) {
         return new Rectangle(Float.valueOf(x1.getText())*72f/25.4f,
                 842f - Float.valueOf(y1.getText())*72f/25.4f,
                 Float.valueOf(x2.getText())*72f/25.4f,
                 842f - Float.valueOf(y2.getText())*72f/25.4f);
     }
-    String recupereAdresse(PdfReader lecteurPdf, Rectangle rectangle) throws IOException {
+    private String recupereAdresse(PdfReader lecteurPdf, Rectangle rectangle) throws IOException {
         RegionTextRenderFilter filter = new RegionTextRenderFilter(rectangle);
         FilteredTextRenderListener strategy = new FilteredTextRenderListener(new LocationTextExtractionStrategy(), filter);
         return PdfTextExtractor.getTextFromPage(lecteurPdf, 1, strategy);
     }
 
-    boolean isTestAdresseUtile(JTextField x1, JTextField y1, JTextField x2, JTextField y2) {
+    private boolean isTestAdresseUtile(JTextField x1, JTextField y1, JTextField x2, JTextField y2) {
         if (x1.getText().isEmpty() &&
                 y1.getText().isEmpty() &&
                 x2.getText().isEmpty() &&
@@ -1171,7 +1148,7 @@ public class ClicSieParams {
             return true;
         }
     }
-    boolean controleAdresse(JTextField x1, JTextField y1, JTextField x2, JTextField y2, JButton test) {
+    private boolean controleAdresse(JTextField x1, JTextField y1, JTextField x2, JTextField y2, JButton test) {
         if (x1.getText().isEmpty() && y1.getText().isEmpty() && x2.getText().isEmpty() && y2.getText().isEmpty()) {
             return true;
         }
@@ -1202,7 +1179,7 @@ public class ClicSieParams {
 //        return true;
 //    }
 
-    boolean isControleVersoInsereNecessaire() {
+    private boolean isControleVersoInsereNecessaire() {
         if(versoInsere.getText().equals("null")) {
             JOptionPane.showMessageDialog(null,
                     "L'option n'est pas demandée. Le test est inutile !",
@@ -1213,7 +1190,7 @@ public class ClicSieParams {
             return true;
         }
     }
-    boolean controleVersoInsere() {
+    private boolean controleVersoInsere() {
 //        if (TypeDocument.get(versoInsere.getText()) == null) {
 //            params.versoInsere.setBackground(Color.RED);
 //            params.testVersoInsere.setForeground(Color.RED);
@@ -1237,37 +1214,9 @@ public class ClicSieParams {
         return true;
     }
 
-    void construitFichier(PdfReader lecteurPdf, int option) {
-        Document docSousPlis = new Document();
-        String nomFichierSousPlis = params.fichierTest.getText().replaceAll("\\.pdf", "__SousPlis.pdf");
-        PdfSmartCopy copySousPlis = null;
-        FileOutputStream streamSousPlis = null;
-        try {
-            streamSousPlis = new FileOutputStream(nomFichierSousPlis);
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
-        }
-        try {
-            copySousPlis = new PdfSmartCopy(docSousPlis, streamSousPlis);
-        } catch (DocumentException e1) {
-            e1.printStackTrace();
-        }
-        docSousPlis.open();
-        PdfSmartCopy copyService = null;
-        Document docService = new Document();
-        String nomFichierService = params.fichierTest.getText().replaceAll("\\.pdf", "__Service.pdf");
-        FileOutputStream streamService = null;
-        try {
-            streamService = new FileOutputStream(nomFichierService);
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
-        }
-        try {
-            copyService = new PdfSmartCopy(docService, streamService);
-        } catch (DocumentException e1) {
-            e1.printStackTrace();
-        }
-        docService.open();
+    private void construitFichier(PdfReader lecteurPdf, int option) {
+        Copie sousPlis = new Copie(params.fichierTest.getText().replaceAll("\\.pdf", "__SousPlis.pdf"));
+        Copie service = new Copie(params.fichierTest.getText().replaceAll("\\.pdf", "__Service.pdf"));
         PdfSmartCopy dernierFichier = null;
         PdfReader lecteurVerso = null;
         if (option > 0) {
@@ -1279,8 +1228,6 @@ public class ClicSieParams {
                 }
             }
         }
-        String[] adresseDest;
-        Rectangle rectDest;
         for (int ipage = 1; ipage <= lecteurPdf.getNumberOfPages(); ipage++) {
             String chaine = getChaine(lecteurPdf, ipage);
             String cle = getCle(chaine, params.regexpCle.getText());
@@ -1295,7 +1242,7 @@ public class ClicSieParams {
             }
             if (!params.chaineSousPlis.getText().equals("null") && chaine.contains(params.chaineSousPlis.getText()) &&
                     !cle.isEmpty()) {
-                dernierFichier = copySousPlis;
+                dernierFichier = sousPlis.getPdfSmartCopy();
                 if (dernierFichier.getPageNumber() % 2 == 0) {
                     try {
                         dernierFichier.addPage(PageSize.A4, 0);
@@ -1323,7 +1270,7 @@ public class ClicSieParams {
                 }
             } else if (!params.chaineService.getText().equals("null") && chaine.contains(params.chaineService.getText()) &&
                     !cle.isEmpty()) {
-                dernierFichier = copyService;
+                dernierFichier = service.getPdfSmartCopy();
                 if (dernierFichier.getPageNumber() % 2 == 0) {
                     try {
                         dernierFichier.addPage(PageSize.A4, 0);
@@ -1340,6 +1287,7 @@ public class ClicSieParams {
                     e1.printStackTrace();
                 }
             } else if (params.plusieursPages.isSelected()) {
+                assert dernierFichier != null;
                 PdfImportedPage pageOriginale = dernierFichier.getImportedPage(lecteurPdf, ipage);
                 try {
                     dernierFichier.addPage(pageOriginale);
@@ -1350,57 +1298,21 @@ public class ClicSieParams {
                 }
             }
         }
-        if (copySousPlis.getPageNumber() == 1 && copySousPlis.isPageEmpty()) {
-            try {
-                streamSousPlis.close();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-            new File(nomFichierSousPlis).delete();
-        } else {
-            copySousPlis.close();
-            String[] commande = new String[]{"C:\\Program Files\\Adobe\\Reader 10.0\\Reader\\AcroRd32.exe",
-                    nomFichierSousPlis};
-            Runtime runtime = Runtime.getRuntime();
-            try {
-                runtime.exec(commande);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        }
-        if (copyService.getPageNumber() == 1 && copyService.isPageEmpty()) {
-            try {
-                streamService.close();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-            new File(nomFichierService).delete();
-        } else {
-            docService.close();
-            copyService.close();
-            String[] commande = new String[]{"C:\\Program Files\\Adobe\\Reader 10.0\\Reader\\AcroRd32.exe",
-                    nomFichierService};
-            Runtime runtime = Runtime.getRuntime();
-            try {
-                runtime.exec(commande);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        }
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e1) {
-            e1.printStackTrace();
-        }
+        sousPlis.ouvrePdf();
+        service.ouvrePdf();
     }
 
-    void aide(String champ, String message) {
-        //JTextArea textArea = new JTextArea(20, 60);
-        //textArea.setText(String.format("Aide pour le champ <b>%s</b>\n\n%s", champ, message));
-        //textArea.setEditable(true);
+    private void aide(String champ) {
+        BufferedInputStream resource = (BufferedInputStream) ClicSieParams.class.getResourceAsStream(String.format("%s.html", champ));
+        String message = "";
+        try {
+            message = IOUtils.toString(resource, "UTF-8");
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
         JTextPane texte = new JTextPane();
         texte.setContentType( "text/html" );
-        texte.setText(String.format("<html>Aide pour le champ <b>%s</b>\n\n%s</html>", champ, message));
+        texte.setText(String.format("<html>Aide pour le champ <b>%s:</b>\n\n%s</html>", champ, message));
         // wrap a scrollpane around it
         JScrollPane scrollPane = new JScrollPane(texte);
         // display them in a message dialog
@@ -1408,7 +1320,7 @@ public class ClicSieParams {
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
-    String getCle(String chaine, String regexpCle) {
+    private String getCle(String chaine, String regexpCle) {
         String cle = "";
         Pattern pattern = Pattern.compile(regexpCle, Pattern.MULTILINE | Pattern.DOTALL);
         Matcher matcher = pattern.matcher(chaine);
@@ -1421,7 +1333,7 @@ public class ClicSieParams {
         return cle.replaceAll(" ", "");
     }
 
-    PdfReader fichierTest() {
+    private PdfReader fichierTest() {
         if (params.fichierTest.getText().isEmpty()) {
             params.fichierTest.setBackground(Color.RED);
             JOptionPane.showMessageDialog(null,
@@ -1455,7 +1367,7 @@ public class ClicSieParams {
         return lecteurPdf;
     }
 
-    String getChaine(PdfReader lecteurPdf, int page) {
+    private String getChaine(PdfReader lecteurPdf, int page) {
         String chaine = "";
         try {
             chaine = PdfTextExtractor.getTextFromPage(lecteurPdf, page);
@@ -1494,7 +1406,7 @@ public class ClicSieParams {
         JFrame frame = new JFrame("Paramétrage");
         params = new ClicSieParams();
         frame.setContentPane(params.panel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
         params.rotation.addItem("0");
         params.rotation.addItem("90");
@@ -1505,7 +1417,7 @@ public class ClicSieParams {
         frame.setVisible(true);
     }
 
-    public static void setData() {
+    private static void setData() {
         TypeActe typeActe = listeTypesActes.get(rangListeTypesActes);
         params.nomActe.setText(typeActe.getNom());
         params.utiliseLOActe.setSelected(typeActe.isUtiliseLO());
@@ -1590,7 +1502,7 @@ public class ClicSieParams {
         params.delTypeDocument.setEnabled(listeTypesDocumentsOrdonnes.size() > 1);
     }
 
-    public void getData() {
+    private void getData() {
         TypeActe typeActe = listeTypesActes.get(rangListeTypesActes);
         typeActe.setNom(params.nomActe.getText());
         typeActe.setUtiliseLO(params.utiliseLOActe.isSelected());
@@ -1606,8 +1518,8 @@ public class ClicSieParams {
         typeDocument.setChaineType(params.chaineType.getText());
         typeDocument.setRegexpCle(params.regexpCle.getText());
         typeDocument.setPrefixeCle(params.prefixeCle.getText());
-        typeDocument.setChaineSousPlis(params.chaineSousPlis.getText() == "null" ? null : params.chaineSousPlis.getText());
-        typeDocument.setChaineService(params.chaineService.getText() == "null" ? null : typeDocument.getChaineService());
+        typeDocument.setChaineSousPlis(params.chaineSousPlis.getText().equals("null") ? null : params.chaineSousPlis.getText());
+        typeDocument.setChaineService(params.chaineService.getText().equals("null") ? null : typeDocument.getChaineService());
         typeDocument.setPlusieursPages(params.plusieursPages.isSelected());
         typeDocument.setPageImpaire(params.pageImpaire.isSelected());
         typeDocument.setRotation((Integer.valueOf(params.rotation.getSelectedItem().toString())));
@@ -1619,8 +1531,9 @@ public class ClicSieParams {
         } else {
             rubrique.put("x", Float.valueOf(params.adresseExpBasGaucheX.getText()));
             rubrique.put("y", params.adresseExpBasGaucheY.getText().isEmpty() ? 0.0f :
-                    Float.valueOf(params.adresseExpBasGaucheX.getText()));
+                    Float.valueOf(params.adresseExpBasGaucheY.getText()));
             adresse.put("basGauche", rubrique);
+            rubrique = new HashMap<String, Float>();
             rubrique.put("x", params.adresseExpHautDroiteX.getText().isEmpty() ? 0.0f :
                     Float.valueOf(params.adresseExpHautDroiteX.getText()));
             rubrique.put("y", params.adresseExpHautDroiteY.getText().isEmpty() ? 0.0f :
@@ -1632,10 +1545,13 @@ public class ClicSieParams {
         if (params.adresseDestBasGaucheX.getText().isEmpty()) {
             typeDocument.setAdresseDest(null);
         } else {
+            rubrique = new HashMap<String, Float>();
             rubrique.put("x", Float.valueOf(params.adresseDestBasGaucheX.getText()));
             rubrique.put("y", params.adresseDestBasGaucheY.getText().isEmpty() ? 0.0f :
-                    Float.valueOf(params.adresseDestBasGaucheX.getText()));
+                    Float.valueOf(params.adresseDestBasGaucheY.getText()));
+            adresse = new HashMap<String, Map<String, Float>>();
             adresse.put("basGauche", rubrique);
+            rubrique = new HashMap<String, Float>();
             rubrique.put("x", params.adresseDestHautDroiteX.getText().isEmpty() ? 0.0f :
                     Float.valueOf(params.adresseDestHautDroiteX.getText()));
             rubrique.put("y", params.adresseDestHautDroiteY.getText().isEmpty() ? 0.0f :
@@ -1647,6 +1563,7 @@ public class ClicSieParams {
         if (params.placeDateX.getText().isEmpty()) {
             typeDocument.setPlaceDate(null);
         } else {
+            rubrique = new HashMap<String, Float>();
             rubrique.put("x", Float.valueOf(params.placeDateX.getText()));
             rubrique.put("y", params.placeDateY.getText().isEmpty() ? 0.0f :
                     Float.valueOf(params.placeDateY.getText()));
@@ -1655,6 +1572,7 @@ public class ClicSieParams {
         if (params.placeSignatureX.getText().isEmpty()) {
             typeDocument.setPlaceSignature(null);
         } else {
+            rubrique = new HashMap<String, Float>();
             rubrique.put("x", Float.valueOf(params.placeSignatureX.getText()));
             rubrique.put("y", params.placeSignatureY.getText().isEmpty() ? 0.0f :
                     Float.valueOf(params.placeSignatureY.getText()));
@@ -1664,9 +1582,4 @@ public class ClicSieParams {
         TypeDocument.getDico().remove(listeTypesDocumentsOrdonnes.get(rangListeTypesDocumentsOrdonnes).getNom());
         TypeDocument.getDico().put(typeDocument.getNom(),typeDocument);
     }
-
-    public boolean isModified(ClicSieParams data) {
-        return false;
-    }
-
 }

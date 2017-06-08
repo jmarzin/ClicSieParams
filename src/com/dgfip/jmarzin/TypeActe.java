@@ -17,6 +17,9 @@ public class TypeActe {
     public void setNom(String nom) {
         this.nom = nom;
     }
+    public String paramNom() {
+        return String.format("nom: %s%n", nom);
+    }
 
     private boolean utiliseLO = false;
     public boolean isUtiliseLO() {
@@ -24,6 +27,13 @@ public class TypeActe {
     }
     public void setUtiliseLO(boolean utiliseLO) {
         this.utiliseLO = utiliseLO;
+    }
+    public String paramUtiliseLO() {
+        if (utiliseLO) {
+            return String.format("utiliseLO: true%n");
+        } else {
+            return "";
+        }
     }
 
     private int maxPages = 0;
@@ -33,6 +43,13 @@ public class TypeActe {
     public void setMaxPages(int maxPages) {
         this.maxPages = maxPages;
     }
+    public String paramMaxPages() {
+        if (maxPages > 0) {
+            return String.format("maxPages: %d%n",maxPages);
+        } else {
+            return "";
+        }
+    }
 
     private boolean clicEsiPlus = true;
     public boolean isClicEsiPlus() {
@@ -40,6 +57,13 @@ public class TypeActe {
     }
     public void setClicEsiPlus(boolean clicEsiPlus) {
         this.clicEsiPlus = clicEsiPlus;
+    }
+    public String paramClicEsiPlus() {
+        if (clicEsiPlus) {
+             return "";
+        } else {
+            return String.format("clicEsiPlus: false%n");
+        }
     }
 
     private static Map<String,TypeActe> dico = new HashMap<String, TypeActe>();
