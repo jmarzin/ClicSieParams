@@ -4,37 +4,34 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by jmarzin-cp on 31/05/2017.
- */
 public class Erreur {
-    public String getNomTypeActe() {
+    String getNomTypeActe() {
         return nomTypeActe;
     }
 
     private String nomTypeActe;
 
-    public String getNomTypeDocument() {
+    String getNomTypeDocument() {
         return nomTypeDocument;
     }
 
-    public String getMessage() {
+    String getMessage() {
         return message;
     }
 
-    public List<JTextField> getChampsTexte() {
+    List<JTextField> getChampsTexte() {
         return champsTexte;
     }
 
-    public List<JButton> getBoutons() {
+    List<JButton> getBoutons() {
         return boutons;
     }
 
-    public List<JCheckBox> getCasesACocher() {
+    List<JCheckBox> getCasesACocher() {
         return casesACocher;
     }
 
-    public Object getObjetFocus() {
+    Object getObjetFocus() {
         return objectFocus;
     }
 
@@ -55,13 +52,13 @@ public class Erreur {
         if(caseACocher != null) this.casesACocher.add(caseACocher);
         this.objectFocus = objetFocus;
     }
-    void add(JTextField champTexte) {
-        champsTexte.add(champTexte);
-    }
-    void add(JButton bouton) {
-        boutons.add(bouton);
-    }
-    void add(JCheckBox caseACocher) {
-        casesACocher.add(caseACocher);
-    }
+//    void add(JTextField champTexte) {
+//        champsTexte.add(champTexte);
+//    }
+//    void add(JButton bouton) {
+//        boutons.add(bouton);
+//    }
+//    void add(JCheckBox caseACocher) {
+//        casesACocher.add(caseACocher);
+//    }
 }

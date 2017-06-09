@@ -3,14 +3,10 @@ package com.dgfip.jmarzin;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by jacquesmarzin on 01/06/2017.
- */
 public class ControleRangTypeActe extends InputVerifier
 {
     public boolean shouldYieldFocus(JComponent input)
     {
-        JTextField tf   = (JTextField) input;
         boolean inputOK = verify(input);
 
         if (inputOK)
@@ -22,7 +18,7 @@ public class ControleRangTypeActe extends InputVerifier
         {
             input.setBackground(Color.RED);
             JOptionPane.showMessageDialog(null,
-                    String.format("Le rang doit être un entier unique pour chaque type de document d'un type d'acte."),
+                    "Le rang doit être un entier unique pour chaque type de document d'un type d'acte.",
                     "Erreur",
                     JOptionPane.ERROR_MESSAGE);
             return false;

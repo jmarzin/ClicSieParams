@@ -1,22 +1,18 @@
 package com.dgfip.jmarzin;
 
 import com.itextpdf.text.pdf.PdfReader;
-
 import java.io.IOException;
 
-/**
- * Created by jacquesmarzin on 08/06/2017.
- */
-public class Lecteur {
+class Lecteur {
     private PdfReader pdfReader = null;
-    private String nom;
+    //private String nom;
 
-    public PdfReader getPdfReader() {
+    PdfReader getPdfReader() {
         return pdfReader;
     }
 
     Lecteur(String nomfichier) {
-        this.nom = nomfichier;
+    //    this.nom = nomfichier;
         if (!nomfichier.isEmpty()) {
             try {
                 this.pdfReader = new PdfReader(TypeDocument.get(nomfichier).getFichierTest());

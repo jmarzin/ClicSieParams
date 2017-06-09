@@ -3,14 +3,10 @@ package com.dgfip.jmarzin;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by jacquesmarzin on 01/06/2017.
- */
-public class ControleNomTypeActe extends InputVerifier
+class ControleNomTypeActe extends InputVerifier
 {
     public boolean shouldYieldFocus(JComponent input)
     {
-        JTextField tf   = (JTextField) input;
         boolean inputOK = verify(input);
 
         if (inputOK)
@@ -22,7 +18,7 @@ public class ControleNomTypeActe extends InputVerifier
         {
             input.setBackground(Color.RED);
             JOptionPane.showMessageDialog(null,
-                    String.format("Le nom doit correspondre à un type d'acte existant."),
+                    "Le nom doit correspondre à un type d'acte existant.",
                     "Erreur",
                     JOptionPane.ERROR_MESSAGE);
             return false;

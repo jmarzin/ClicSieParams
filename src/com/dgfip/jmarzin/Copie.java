@@ -7,47 +7,42 @@ import com.itextpdf.text.pdf.BadPdfFormatException;
 import com.itextpdf.text.pdf.PdfImportedPage;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfSmartCopy;
-import org.yaml.snakeyaml.reader.StreamReader;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-/**
- * Created by jmarzin-cp on 08/06/2017.
- */
-public class Copie {
+class Copie {
     private String nom;
 
-    public PdfSmartCopy getPdfSmartCopy() {
-        return pdfSmartCopy;
-    }
-
     private PdfSmartCopy pdfSmartCopy;
-    private Document document;
+
     private FileOutputStream fileOutputStream;
-    private Boolean resultat;
+
+    private Boolean ok;
+    Boolean isOk() {
+        return ok;
+    }
 
     Copie(String nom) {
         this.nom = nom;
-        this.document = new Document();
+        Document document = new Document();
         try {
             this.fileOutputStream = new FileOutputStream(nom);
             this.pdfSmartCopy = new PdfSmartCopy(document, fileOutputStream);
-            this.document.open();
-            resultat = true;
+            document.open();
+            ok = true;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            resultat = false;
+            ok = false;
         } catch (DocumentException e) {
             e.printStackTrace();
-            resultat = false;
+            ok = false;
         }
     }
     void ouvrePdf() {
         if (this.pdfSmartCopy.getPageNumber() == 1 &&
-                this.getPdfSmartCopy().isPageEmpty()) {
+                this.pdfSmartCopy.isPageEmpty()) {
             try {
                 this.fileOutputStream.close();
             } catch (IOException e1) {
@@ -57,7 +52,6 @@ public class Copie {
         } else {
             this.pdfSmartCopy.close();
             UtileFichier.lanceAcrobat(this.nom);
-
         }
     }
     void pageImpaire() {

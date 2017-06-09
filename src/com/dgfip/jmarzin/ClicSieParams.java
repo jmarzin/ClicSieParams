@@ -573,13 +573,12 @@ public class ClicSieParams {
         testDeleteDest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PdfReader lecteurPdf = fichierTest();
-                if (lecteurPdf == null) {
-                    return;
-                }
                 if (!isTestAdresseUtile(adresseDestBasGaucheX, adresseDestBasGaucheY,
                         adresseDestHautDroiteX, adresseDestHautDroiteY)) {
-                    lecteurPdf.close();
+                    return;
+                }
+                PdfReader lecteurPdf = fichierTest();
+                if (lecteurPdf == null) {
                     return;
                 }
                 if (!controleAdresse(adresseDestBasGaucheX, adresseDestBasGaucheY,
@@ -821,7 +820,7 @@ public class ClicSieParams {
         quoiRotation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                aide("rotation:");
+                aide("rotation");
             }
         });
         quoiVersoInsere.addActionListener(new ActionListener() {
@@ -1126,6 +1125,9 @@ public class ClicSieParams {
     private void construitFichier(PdfReader lecteurPdf, int option) {
         Copie sousPlis = new Copie(params.fichierTest.getText().replaceAll("\\.pdf", "__SousPlis.pdf"));
         Copie service = new Copie(params.fichierTest.getText().replaceAll("\\.pdf", "__Service.pdf"));
+        if (!sousPlis.isOk() || !service.isOk()) {
+            return;
+        }
         Copie dernierFichier = null;
         Lecteur lecteurVerso = null;
         if (option > 0) {
@@ -1174,6 +1176,7 @@ public class ClicSieParams {
             e1.printStackTrace();
         }
         JTextPane texte = new JTextPane();
+        texte.setPreferredSize(new Dimension(500,250));
         texte.setContentType( "text/html" );
         texte.setText(String.format("<html>Aide pour le champ <b>%s:</b>\n\n%s</html>", champ, message));
         // wrap a scrollpane around it

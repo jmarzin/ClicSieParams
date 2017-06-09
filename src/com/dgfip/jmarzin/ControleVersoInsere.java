@@ -3,14 +3,10 @@ package com.dgfip.jmarzin;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by jacquesmarzin on 01/06/2017.
- */
 public class ControleVersoInsere extends InputVerifier
 {
     public boolean shouldYieldFocus(JComponent input)
     {
-        JTextField tf   = (JTextField) input;
         boolean inputOK = verify(input);
 
         if (inputOK)
@@ -22,7 +18,7 @@ public class ControleVersoInsere extends InputVerifier
         {
             input.setBackground(Color.RED);
             JOptionPane.showMessageDialog(null,
-                    String.format("Le type de document doit exister et contenir la chaîne VERSO."),
+                    "Le type de document doit exister et contenir la chaîne VERSO.",
                     "Erreur",
                     JOptionPane.ERROR_MESSAGE);
             return false;
@@ -32,7 +28,7 @@ public class ControleVersoInsere extends InputVerifier
     public boolean verify(JComponent input)
     {
         JTextField tf  = (JTextField) input;
-        boolean retour =  false;
+        boolean retour;
         if (tf.getText().isEmpty()) {
             retour = true;
         } else if (tf.getText().toUpperCase().contains("VERSO")) {

@@ -3,14 +3,10 @@ package com.dgfip.jmarzin;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by jacquesmarzin on 01/06/2017.
- */
 public class ControleX extends InputVerifier
 {
     public boolean shouldYieldFocus(JComponent input)
     {
-        JTextField tf   = (JTextField) input;
         boolean inputOK = verify(input);
 
         if (inputOK)
@@ -20,19 +16,19 @@ public class ControleX extends InputVerifier
         }
         input.setBackground(Color.RED);
         JOptionPane.showMessageDialog(null,
-                String.format("Le champ doit être vide ou contenir un flottant positif <= 210.0"),
+                "Le champ doit être vide ou contenir un flottant positif <= 210.0",
                 "Erreur",
                 JOptionPane.ERROR_MESSAGE);
         return false;
     }
-    public boolean controle(JComponent input) {
+    boolean controle(JComponent input) {
         JTextField tf = (JTextField) input;
         boolean inputOK = verify(input);
 
         if (tf.getText().isEmpty() || !inputOK) {
             input.setBackground(Color.RED);
             JOptionPane.showMessageDialog(null,
-                    String.format("Le champ doit contenir un flottant positif <= 210.0"),
+                    "Le champ doit contenir un flottant positif <= 210.0",
                     "Erreur",
                     JOptionPane.ERROR_MESSAGE);
             return false;
@@ -42,7 +38,7 @@ public class ControleX extends InputVerifier
     public boolean verify(JComponent input)
     {
         JTextField tf  = (JTextField) input;
-        boolean retour =  false;
+        boolean retour;
         if (tf.getText().isEmpty()) {
             retour = true;
         } else {

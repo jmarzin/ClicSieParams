@@ -1,11 +1,7 @@
 package com.dgfip.jmarzin;
 
-import com.itextpdf.text.Rectangle;
 import org.yaml.snakeyaml.Yaml;
-
-import java.awt.*;
 import java.io.*;
-import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.util.*;
 import java.util.List;
@@ -48,7 +44,9 @@ class LecteurParametres {
         this.nomFichier = nomFichier;
         String[] lignes = null;
         try {
-            lignes = UtileFichier.lit(nomFichier).split("\n");
+            String fichier = UtileFichier.lit(nomFichier);
+            assert fichier != null;
+            lignes = fichier.split("\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -86,20 +84,18 @@ class LecteurParametres {
         }
     }
 
-    static boolean egal(String chaine1, String chaine2) {
-        if (chaine1 == null && chaine2 == null) {
-            return true;
-        }
-        if (chaine1 == null || chaine2 == null) {
-            return false;
-        }
-        return chaine1.equals(chaine2);
-    }
+//    static boolean egal(String chaine1, String chaine2) {
+//        if (chaine1 == null && chaine2 == null) {
+//            return true;
+//        }
+//        if (chaine1 == null || chaine2 == null) {
+//            return false;
+//        }
+//        return chaine1.equals(chaine2);
+//    }
 
     void ecritDonnees() {
         String texteFichier = "";
-        TypeActe typeActe1 = new TypeActe();
-        TypeDocument typeDocument1 = new TypeDocument();
         for (TypeActe typeActe: ClicSieParams.listeTypesActes) {
             texteFichier += String.format("--- !!com.dgfip.jmarzin.TypeActe%n") +
                     typeActe.paramNom() +
@@ -107,7 +103,6 @@ class LecteurParametres {
                     typeActe.paramMaxPages() +
                     typeActe.paramClicEsiPlus();
             ClicSieParams.listeTypesDocumentsOrdonnes = TypeActe.get(typeActe.getNom()).typeCourriersOrdonnes();
-            String chaine = "";
             for (TypeDocument typeDocument:ClicSieParams.listeTypesDocumentsOrdonnes) {
                 texteFichier += String.format("--- !!com.dgfip.jmarzin.TypeDocument%n") +
                         typeDocument.paramNom() +
@@ -133,7 +128,7 @@ class LecteurParametres {
         }
         File fichier = new File(this.nomFichier);
         fichier.renameTo(new File(nomFichier.replaceAll(".params", ".bak")));
-        OutputStream outputStream = null;
+        OutputStream outputStream;
         try {
             outputStream = new FileOutputStream(fichier);
             byte[] b = texteFichier.getBytes(Charset.forName("UTF8"));
