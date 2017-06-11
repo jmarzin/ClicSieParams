@@ -3,19 +3,24 @@ package com.dgfip.jmarzin;
 import javax.swing.*;
 import java.awt.*;
 
-class ControleNomTypeActe extends InputVerifier
-{
-    public boolean shouldYieldFocus(JComponent input)
-    {
+/**
+ * Cette classe contrôle la saisie du Nom du type d'Acte
+ * d'un type de document.
+ */
+class ControleNomTypeActe extends InputVerifier {
+    /**
+     * Cette méthode met le champ en rouge et affiche
+     * le message d'erreur s'il
+     * est erroné, et le met en blanc sinon.
+     * @param input le champ à contrôler
+     * @return true si ok, false si ko
+     */
+    public boolean shouldYieldFocus(JComponent input) {
         boolean inputOK = verify(input);
-
-        if (inputOK)
-        {
+        if (inputOK) {
             input.setBackground(Color.WHITE);
             return true;
-        }
-        else
-        {
+        } else {
             input.setBackground(Color.RED);
             JOptionPane.showMessageDialog(null,
                     "Le nom doit correspondre à un type d'acte existant.",
@@ -25,8 +30,13 @@ class ControleNomTypeActe extends InputVerifier
         }
     }
 
-    public boolean verify(JComponent input)
-    {
+    /**
+     * Cette méthode contrôle que le contenu du champ
+     * correspond à un type d'acte qui existe.
+     * @param input le champ à contrôler
+     * @return true si ok, false si ko.
+     */
+    public boolean verify(JComponent input) {
         JTextField tf  = (JTextField) input;
         boolean retour =  false;
         if (tf.getText().equals(ClicSieParams.params.nomActe.getText())) {

@@ -8,10 +8,7 @@ import com.itextpdf.text.pdf.PdfStamper;
 import java.io.*;
 import java.nio.charset.Charset;
 
-/**
- * Created by jmarzin-cp on 20/05/2017.
- */
-public class UtileFichier {
+class UtileFichier {
     static String lit(String nomFichier) throws IOException {
         File fichier = new File (nomFichier);
         if (fichier.exists()) {

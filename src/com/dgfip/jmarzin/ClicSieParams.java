@@ -11,7 +11,6 @@ import com.itextpdf.text.pdf.parser.RegionTextRenderFilter;
 import com.itextpdf.text.pdf.pdfcleanup.PdfCleanUpLocation;
 import com.itextpdf.text.pdf.pdfcleanup.PdfCleanUpProcessor;
 import org.apache.commons.io.IOUtils;
-
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
@@ -161,7 +160,7 @@ public class ClicSieParams {
     private JButton testPlusieursPages;
     private JButton testPageImpaire;
 
-    public ClicSieParams() {
+    ClicSieParams() {
 
         enregistreLeFichier.addActionListener(new ActionListener() {
             @Override
@@ -1168,7 +1167,7 @@ public class ClicSieParams {
     }
 
     private void aide(String champ) {
-        BufferedInputStream resource = (BufferedInputStream) ClicSieParams.class.getResourceAsStream(String.format("/com/dgfip/jmarzin/aide/%s.html", champ));
+        InputStream resource = getClass().getResourceAsStream(String.format("/com/dgfip/jmarzin/aide/%s.html", champ));
         String message = "";
         try {
             message = IOUtils.toString(resource, "UTF-8");
@@ -1179,6 +1178,7 @@ public class ClicSieParams {
         texte.setPreferredSize(new Dimension(500,250));
         texte.setContentType( "text/html" );
         texte.setText(String.format("<html>Aide pour le champ <b>%s:</b>\n\n%s</html>", champ, message));
+        texte.setCaretPosition(0);
         // wrap a scrollpane around it
         JScrollPane scrollPane = new JScrollPane(texte);
         // display them in a message dialog

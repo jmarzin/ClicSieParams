@@ -1,59 +1,47 @@
 package com.dgfip.jmarzin;
 
-import sun.misc.Regexp;
-
-import javax.swing.*;
-import java.lang.reflect.Type;
 import java.util.*;
 
-import static com.dgfip.jmarzin.ClicSieParams.listeTypesActes;
-import static com.dgfip.jmarzin.ClicSieParams.params;
-import static com.dgfip.jmarzin.ClicSieParams.rangListeTypesDocumentsOrdonnes;
-
-/**
- * Created by jmarzin-cp on 13/05/2017.
- */
 public class TypeDocument {
 
     private String fichierTest = "";
-    public String getFichierTest() {
+    String getFichierTest() {
         return fichierTest;
     }
-
-    public void setFichierTest(String fichierTest) {
+    void setFichierTest(String fichierTest) {
         this.fichierTest = fichierTest;
     }
 
     private String nom = null;
-    public String getNom() {
+    String getNom() {
         return nom;
     }
     public void setNom(String nom) {
         this.nom = nom;
     }
-    public String paramNom() {
+    String paramNom() {
         return String.format("nom: %s%n",nom);
     }
 
     private String nomTypeActe = null;
-    public String getNomTypeActe() {
+    String getNomTypeActe() {
         return nomTypeActe;
     }
     public void setNomTypeActe(String nomTypeActe) {
         this.nomTypeActe = nomTypeActe;
     }
-    public String paramNomTypeActe() {
+    String paramNomTypeActe() {
         return String.format("nomTypeActe: %s%n", nomTypeActe);
     }
 
     private int rangTypeActe = 1;
-    public int getRangTypeActe() {
+    int getRangTypeActe() {
         return rangTypeActe;
     }
     public void setRangTypeActe(int rangTypeActe) {
         this.rangTypeActe = rangTypeActe;
     }
-    public String paramRangTypeActe() {
+    String paramRangTypeActe() {
         if (rangTypeActe == 1) {
             return "";
         } else {
@@ -61,13 +49,13 @@ public class TypeDocument {
         }
     }
     private String chaineType = "";
-    public String getChaineType() {
+    String getChaineType() {
         return chaineType;
     }
     public void setChaineType(String chaineType) {
         this.chaineType = chaineType;
     }
-    public String paramChaineType() {
+    String paramChaineType() {
         if (chaineType.isEmpty()) {
             return "";
         } else {
@@ -76,13 +64,13 @@ public class TypeDocument {
     }
 
     private String regexpCle = "";
-    public String getRegexpCle() {
+    String getRegexpCle() {
         return regexpCle;
     }
     public void setRegexpCle(String regexpCle) {
         this.regexpCle = regexpCle;
     }
-    public String paramRegexpCle() {
+    String paramRegexpCle() {
         if (regexpCle == null) {
             return String.format("regexpCle: null%n");
         } else if (regexpCle.isEmpty()) {
@@ -93,13 +81,13 @@ public class TypeDocument {
     }
 
     private String prefixeCle = "";
-    public String getPrefixeCle() {
+    String getPrefixeCle() {
         return prefixeCle;
     }
     public void setPrefixeCle(String prefixeCle) {
         this.prefixeCle = prefixeCle;
     }
-    public String paramPrefixeCle() {
+    String paramPrefixeCle() {
         if (prefixeCle == null) {
             return String.format("prefixeCle: null%n");
         } else if (prefixeCle.isEmpty()) {
@@ -110,13 +98,13 @@ public class TypeDocument {
     }
 
     private String chaineSousPlis = "";
-    public String getChaineSousPlis() {
+    String getChaineSousPlis() {
         return chaineSousPlis;
     }
     public void setChaineSousPlis(String chaineSousPlis) {
         this.chaineSousPlis = chaineSousPlis;
     }
-    public String paramChaineSousPlis() {
+    String paramChaineSousPlis() {
         if (chaineSousPlis == null) {
             return String.format("chaineSousPlis: null%n");
         } else if (chaineSousPlis.isEmpty()) {
@@ -127,13 +115,13 @@ public class TypeDocument {
     }
 
     private String chaineService = null;
-    public String getChaineService() {
+    String getChaineService() {
         return chaineService;
     }
     public void setChaineService(String chaineService) {
         this.chaineService = chaineService;
     }
-    public String paramChaineService() {
+    String paramChaineService() {
         if (chaineService == null) {
             return "";
         } else if (chaineService.isEmpty()) {
@@ -144,13 +132,13 @@ public class TypeDocument {
     }
 
     private boolean plusieursPages = false;
-    public boolean isPlusieursPages() {
+    boolean isPlusieursPages() {
         return plusieursPages;
     }
     public void setPlusieursPages(boolean plusieursPages) {
         this.plusieursPages = plusieursPages;
     }
-    public String paramPlusieursPages() {
+    String paramPlusieursPages() {
         if (plusieursPages) {
             return String.format("plusieursPages: true%n");
         } else {
@@ -159,13 +147,13 @@ public class TypeDocument {
     }
 
     private boolean pageImpaire = true;
-    public boolean isPageImpaire() {
+    boolean isPageImpaire() {
         return pageImpaire;
     }
     public void setPageImpaire(boolean pageImpaire) {
         this.pageImpaire = pageImpaire;
     }
-    public String paramPageImpaire() {
+    String paramPageImpaire() {
         if (pageImpaire) {
             return "";
         } else {
@@ -174,13 +162,13 @@ public class TypeDocument {
     }
 
     private int rotation = 0;
-    public int getRotation() {
+    int getRotation() {
         return rotation;
     }
     public void setRotation(int rotation) {
         this.rotation = rotation;
     }
-    public String paramRotation() {
+    String paramRotation() {
         if (rotation == 0) {
             return "";
         } else {
@@ -189,13 +177,13 @@ public class TypeDocument {
     }
 
     private String versoInsere = null;
-    public String getVersoInsere() {
+    String getVersoInsere() {
         return versoInsere;
     }
     public void setVersoInsere(String versoInsere) {
         this.versoInsere = versoInsere;
     }
-    public String paramVersoInsere() {
+    String paramVersoInsere() {
         if (versoInsere == null) {
             return "";
         } else {
@@ -205,13 +193,13 @@ public class TypeDocument {
 
 
     private Object adresseExp = null;
-    public Object getAdresseExp() {
+    Object getAdresseExp() {
         return adresseExp;
     }
     public void setAdresseExp(Object adresseExp) {
         this.adresseExp = adresseExp;
     }
-    public String paramAdresseExp() {
+    String paramAdresseExp() {
         if (adresseExp == null) {
             return "";
         } else {
@@ -220,13 +208,13 @@ public class TypeDocument {
     }
 
     private boolean deleteExp = false;
-    public boolean isDeleteExp() {
+    boolean isDeleteExp() {
         return deleteExp;
     }
     public void setDeleteExp(boolean deleteExp) {
         this.deleteExp = deleteExp;
     }
-    public String paramDeleteExp() {
+    String paramDeleteExp() {
         if (deleteExp) {
             return String.format("deleteExp: true%n");
         } else {
@@ -235,13 +223,13 @@ public class TypeDocument {
     }
 
     private Object adresseDest = null;
-    public Object getAdresseDest() {
+    Object getAdresseDest() {
         return adresseDest;
     }
     public void setAdresseDest(Object adresseDest) {
         this.adresseDest = adresseDest;
     }
-    public String paramAdresseDest() {
+    String paramAdresseDest() {
         if (adresseDest == null) {
             return "";
         } else {
@@ -249,13 +237,13 @@ public class TypeDocument {
         }
     }
     private boolean deleteDest = false;
-    public boolean isDeleteDest() {
+    boolean isDeleteDest() {
         return deleteDest;
     }
     public void setDeleteDest(boolean deleteDest) {
         this.deleteDest = deleteDest;
     }
-    public String paramDeleteDest() {
+    String paramDeleteDest() {
         if (deleteExp) {
             return String.format("deleteDest: true%n");
         } else {
@@ -264,13 +252,13 @@ public class TypeDocument {
     }
 
     private Map<String,Float> placeDate = null;
-    public Map<String,Float> getPlaceDate() {
+    Map<String,Float> getPlaceDate() {
         return placeDate;
     }
     public void setPlaceDate(Map<String,Float> placeDate) {
         this.placeDate = placeDate;
     }
-    public String paramPlaceDate() {
+    String paramPlaceDate() {
         if (placeDate == null) {
             return "";
         } else {
@@ -279,13 +267,13 @@ public class TypeDocument {
     }
 
     private Map<String,Float> placeSignature = null;
-    public Map<String, Float> getPlaceSignature() {
+    Map<String, Float> getPlaceSignature() {
         return placeSignature;
     }
     public void setPlaceSignature(Map<String, Float> placeSignature) {
         this.placeSignature = placeSignature;
     }
-    public String paramPlaceSignature() {
+    String paramPlaceSignature() {
         if (placeSignature == null) {
             return "";
         } else {
@@ -294,13 +282,13 @@ public class TypeDocument {
     }
 
     private boolean avecGrade = true;
-    public boolean isAvecGrade() {
+    boolean isAvecGrade() {
         return avecGrade;
     }
     public void setAvecGrade(boolean avecGrade) {
         this.avecGrade = avecGrade;
     }
-    public String paramAvecGrade() {
+    String paramAvecGrade() {
         if (avecGrade) {
             return "";
         } else {
@@ -309,12 +297,12 @@ public class TypeDocument {
     }
 
     private static Map<String,TypeDocument> dico = new HashMap<String, TypeDocument>();
-    public static Map<String, TypeDocument> getDico() {
+    static Map<String, TypeDocument> getDico() {
         return dico;
     }
-    public static void setDico(Map<String, TypeDocument> dico) {
-        TypeDocument.dico = dico;
-    }
+    //public static void setDico(Map<String, TypeDocument> dico) {
+    //    TypeDocument.dico = dico;
+    //}
 
     TypeDocument(){
     }
@@ -324,16 +312,16 @@ public class TypeDocument {
         return dico.get(nom);
     }
 
-    boolean isVerso() {
-        for(TypeDocument type : values()) {
-            if(type.getVersoInsere() != null && type.getVersoInsere().equals(nom)) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    boolean isVerso() {
+//        for(TypeDocument type : values()) {
+//            if(type.getVersoInsere() != null && type.getVersoInsere().equals(nom)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
     private String encadre(String chaine) {
-        String retour = "";
+        String retour;
         if (chaine.contains(":")) {
             if (chaine.contains("'")) {
                 retour = ('"' + chaine + '"').replaceAll(new String("\\"), "\\\\");
@@ -364,9 +352,9 @@ public class TypeDocument {
                 place.get("y"));
     }
 
-    static Collection<TypeDocument> values() {
-        return dico.values();
-    }
+//    private static Collection<TypeDocument> values() {
+//        return dico.values();
+//    }
 
     static List<Erreur> erreurs(List<Erreur> listeErreurs) {
         return listeErreurs;

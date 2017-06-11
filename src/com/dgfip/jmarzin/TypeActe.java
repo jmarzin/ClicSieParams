@@ -2,12 +2,6 @@ package com.dgfip.jmarzin;
 
 import java.util.*;
 
-import static com.dgfip.jmarzin.ClicSieParams.listeTypesActes;
-import static com.dgfip.jmarzin.ClicSieParams.params;
-
-/**
- * Created by jmarzin-cp on 16/05/2017.
- */
 public class TypeActe {
 
     private String nom;
@@ -17,18 +11,18 @@ public class TypeActe {
     public void setNom(String nom) {
         this.nom = nom;
     }
-    public String paramNom() {
+    String paramNom() {
         return String.format("nom: %s%n", nom);
     }
 
     private boolean utiliseLO = false;
-    public boolean isUtiliseLO() {
+    boolean isUtiliseLO() {
         return utiliseLO;
     }
     public void setUtiliseLO(boolean utiliseLO) {
         this.utiliseLO = utiliseLO;
     }
-    public String paramUtiliseLO() {
+    String paramUtiliseLO() {
         if (utiliseLO) {
             return String.format("utiliseLO: true%n");
         } else {
@@ -37,13 +31,13 @@ public class TypeActe {
     }
 
     private int maxPages = 0;
-    public int getMaxPages() {
+    int getMaxPages() {
         return maxPages;
     }
     public void setMaxPages(int maxPages) {
         this.maxPages = maxPages;
     }
-    public String paramMaxPages() {
+    String paramMaxPages() {
         if (maxPages > 0) {
             return String.format("maxPages: %d%n",maxPages);
         } else {
@@ -52,13 +46,13 @@ public class TypeActe {
     }
 
     private boolean clicEsiPlus = true;
-    public boolean isClicEsiPlus() {
+    boolean isClicEsiPlus() {
         return clicEsiPlus;
     }
     public void setClicEsiPlus(boolean clicEsiPlus) {
         this.clicEsiPlus = clicEsiPlus;
     }
-    public String paramClicEsiPlus() {
+    String paramClicEsiPlus() {
         if (clicEsiPlus) {
              return "";
         } else {
@@ -67,23 +61,19 @@ public class TypeActe {
     }
 
     private static Map<String,TypeActe> dico = new HashMap<String, TypeActe>();
-    public static Map<String, TypeActe> getDico() {
+    static Map<String, TypeActe> getDico() {
         return dico;
     }
-    public static void setDico(Map<String, TypeActe> dico) {
-        TypeActe.dico = dico;
-    }
+    //public static void setDico(Map<String, TypeActe> dico) {
+    //    TypeActe.dico = dico;
+    //}
 
     private static LinkedList<TypeActe> liste = new LinkedList<TypeActe>();
-    public static LinkedList<TypeActe> getListe() {
+    static LinkedList<TypeActe> getListe() {
         return liste;
     }
 
     TypeActe(){
-    }
-
-    static Collection<TypeActe> values() {
-        return dico.values();
     }
 
     static TypeActe get(String nom){

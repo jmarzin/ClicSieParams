@@ -1,1 +1,28 @@
-<!DOCTYPE html><html  lang="fr">  <head>    <meta  content="text/html; charset=UTF-8"  http-equiv="content-type">  </head>  <body><br>  </body></html>
+<!DOCTYPE html>
+<html  lang="fr">
+  <head>
+    <meta  content="text/html; charset=UTF-8"  http-equiv="content-type">
+  </head>
+  <body><br>
+    Cette donnée doit être précisée si vous souhaitez mettre aux
+    normes l'adresse du destinataire.<br>
+    Pour ce faire, définissez le rectangle qui contient l'adresse, en indiquant
+    :<br>
+    <ul>
+      <li>les coordonnées de son coin en bas à gauche,</li>
+      <li>les coordonnées de son coin en haut et à droite.</li>
+    </ul>
+    <p>Les coordonnées doivent être saisies en mm à partir du bord gauche de la
+      page pour l'abscisse x, du bord haut de la page pour l'abscisse y.</p>
+    <p>Pour déterminer ces coordonnées, utilisez LibreOffice Draw. Chargez le
+      pdf d'origine, paramétrez les coordonnées en mm (Préférences, Draw,
+      Général), et mettez à zéro les marges de la page (Format, Page, Marges).
+      Dessinez un rectangle autour de l'adresse à déplacer (prendre large pour
+      couvrir tous les cas, sans chevaucher d'autres données potentielles).
+      Allez dans l'option position et taille du rectangle, et récupérez les
+      coordonnées des deux coins nécessaires.</p>
+    <p>Si un fichier test est fourni, le bouton <span  style="font-weight: bold;">test</span>
+      permet de récupérer le texte figurant dans le rectangle indiqué. Il ne
+      traite que la première page du fichier test.</p>
+  </body>
+</html>
