@@ -244,7 +244,7 @@ public class TypeDocument {
         this.deleteDest = deleteDest;
     }
     String paramDeleteDest() {
-        if (deleteExp) {
+        if (deleteDest) {
             return String.format("deleteDest: true%n");
         } else {
             return "";
